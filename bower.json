@@ -1,0 +1,23 @@
+{
+  "name": "liveblog",
+  "version": "0.0.0",
+  "homepage": "https://github.com/kennygwang/liveblog",
+  "authors": [
+    "Kenny G. Wang <kennygwang@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "./public/bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.3.15",
+    "angular-route": "~1.3.15",
+    "foundation": "~5.5.1",
+    "jquery": "~2.1.3"
+  }
+}

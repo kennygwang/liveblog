@@ -11,7 +11,8 @@ var path = {
 	serverFiles: ['*.js', 'routes/*.js'],
 	scripts: 'js/*.js',
 	vendorScripts: 'bower_components/**/*.js',
-	scss: ['bower_components/foundation/scss/*', 'scss/*']
+	foundation: 'bower_components/foundation/scss/*',
+	scss: 'scss/*'
 };
 
 
@@ -37,6 +38,14 @@ gulp.task('styles', function (){
 			.pipe(gulp.dest('public/stylesheets'))
 			.pipe(livereload());
 });
+
+gulp.task('foundation', function (){
+	return gulp.src(path.foundation)
+			.pipe(concat('foundation.css'))
+			.pipe(sass())
+			.pipe(gulp.dest('public/stylesheets'))
+			.pipe(livereload());
+})
 
 gulp.task('html', function (){
 	return gulp.src(path.html)
@@ -67,4 +76,4 @@ gulp.task('server', function (){
 
 
 // Default task.
-gulp.task('default', ['vendorScripts', 'scripts', 'styles', 'watch', 'server']);
+gulp.task('default', ['vendorScripts', 'foundation', 'scripts', 'styles', 'watch', 'server']);

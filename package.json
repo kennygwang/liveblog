@@ -20,7 +20,8 @@
     "bcrypt": "*",
     "validator": "*",
     "passport": "*",
-    "passport-local": "*"
+    "passport-local": "*",
+    "express-session": "*"
   },
   "devDependencies": {
     "gulp": "~3.8.11",

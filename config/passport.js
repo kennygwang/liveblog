@@ -1,6 +1,5 @@
 // load passport strategies
-var LocalStrategy = require('passport-local').Strategy
-  , RememberMeStrategy = require('passport-remember-me').Strategy;
+var LocalStrategy = require('passport-local').Strategy;
 // load all necessary models
 var User = require('../models/user');
 

@@ -9,27 +9,18 @@ var livereload = require('gulp-livereload');
 var path = {
 	html: ['views/*.html', 'public/**/*.html'],
 	serverFiles: ['*.js', 'routes/*.js'],
-	scripts: 'js/*.js',
-	vendorScripts: 'bower_components/**/*.js',
-	foundation: 'bower_components/foundation/scss/*',
-	scss: 'scss/*'
+	scripts: 'public/js/*.js',
+	foundation: 'public/bower_components/foundation/scss/*',
+	scss: 'public/scss/*'
 };
 
 
 // Define tasks.
 gulp.task('scripts', function (){
 	return gulp.src(path.scripts)
-			.pipe(concat('scripts.js'))
 			.pipe(gulp.dest('public/js'))
 			.pipe(livereload());
 			// .pipe(uglify());
-});
-
-gulp.task('vendorScripts', function (){
-	return gulp.src(path.vendorScripts)
-			.pipe(concat('vendor.js'))
-			.pipe(gulp.dest('public/js'))
-			.pipe(livereload());
 });
 
 gulp.task('styles', function (){
@@ -59,7 +50,6 @@ gulp.task('watch', function (){
 	livereload.listen();
 	gulp.watch(path.html, []);
 	gulp.watch(path.scripts, ['scripts']);
-	gulp.watch(path.vendorScripts, ['vendorScripts']);
 	gulp.watch(path.scss, ['styles']);
 });
 
@@ -76,4 +66,4 @@ gulp.task('server', function (){
 
 
 // Default task.
-gulp.task('default', ['vendorScripts', 'foundation', 'scripts', 'styles', 'watch', 'server']);
+gulp.task('default', ['foundation', 'scripts', 'styles', 'watch', 'server']);

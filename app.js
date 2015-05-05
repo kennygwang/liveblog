@@ -73,3 +73,4 @@ require('./routes')(router, app, passport);
 
 
 module.exports = app;
+console.log("* server listening on localhost:3000");

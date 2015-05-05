@@ -7,9 +7,7 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var passport = require('passport');
 var session = require('express-session');
-
-var routes = require('./routes/index');
-var users = require('./routes/users');
+var router = express.Router();
 
 var app = express();
 
@@ -32,11 +30,12 @@ app.use(session({
   resave: false,
   saveUninitialized: true
 }));
+
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use('/', routes);
-app.use('/users', users);
+app.use('/api', router);
+require('./routes')(router, app, passport);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

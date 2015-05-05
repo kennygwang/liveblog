@@ -7,7 +7,6 @@ var mongoose = require('mongoose')
 
 var User = new Schema({
 	local: { // used for local login
-		type 			: { type: String },
 	    email 			: { type: String, index: { unique: true } },
 	    password 		: { type: String },
 	    loginAttempts 	: { type: Number, default: 0 },

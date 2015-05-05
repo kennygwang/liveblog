@@ -3,6 +3,20 @@ var cookieAge = 1000 * 60 * 60 * 24 * 30 * 12; // have the cookie last a year
 
 module.exports = function(router, app, passport) {
 	/**
+	 * Renders the login page. Checks if the user is logged in first.
+	 */
+	app.get('/login', notLoggedIn, function(req, res) {
+		res.render('login');
+	});
+
+	/**
+	 * Renders the home page. Checks if the user is logged in first.
+	 */
+	app.get('/', isLoggedIn, function(req, res) {
+		res.render('index');
+	});
+
+	/**
 	 * Tries to log in the user. Sends the user to the main page if successful.
 	 * @param  {Object} req           Request object
 	 * @param  {Object} res           Response object
@@ -36,7 +50,7 @@ module.exports = function(router, app, passport) {
 	});
 
 	var userRoute = router.route('/users');
-	
+
 };
 
 
@@ -46,11 +60,11 @@ module.exports = function(router, app, passport) {
  * @param  {Object}   res  Response object
  * @param  {Function} next The function to be called if the user is authenticated
  */
-function notLoggedIn(req, res, next) {
-	// check if user isn't authenticated in session
-	if (!req.isAuthenticated())
+function isLoggedIn(req, res, next) {
+	// check if user is authenticated in session
+	if (req.isAuthenticated())
 		return next();
-	// redirect to the home page if the user is authenticated
+	// redirect back to landing page if user isn't authenticated
 	res.redirect('/login');
 }
 

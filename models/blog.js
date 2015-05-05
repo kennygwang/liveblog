@@ -1,8 +1,8 @@
-var mongoose = require('mongoose'),
-	Schema = mongoose.Schema;
+var mongoose = require('mongoose');
 
-var Blog = new Schema({
-
+var Blog = new mongoose.Schema({
+	authorId: { type: Schema.Types.ObjectId },
+	authorName: { type: String }
 });
 
-module.exports = mongoose.model('Blog')
+module.exports = mongoose.model('Blog', Blog);

@@ -1,6 +1,5 @@
 var mongoose = require('mongoose'),
-User = mongoose.model('User');
-
+User = mongoose.model('User')
 
 /**
  * Creates a user from the body fields, and sends the user in the response.
@@ -48,5 +47,18 @@ exports.list = function(req, res) {
 };
 
 exports.delete = function(req, res) {
-	
+	var id = mongoose.Types.ObjectId(req.params.id);
+
+	User.remove({ _id: id }, function(err, user) {
+		if (err) {
+			res.status(500).json({ message: 'Server error.', data: {} });
+		}
+
+		if (user) {
+			// TODO: delete blog posts owned by the user
+			res.status(200).json({ message: 'User successfully deleted.', data: {} });
+		} else {
+			res.status(404).json({ message: 'User not found.', data: {} });
+		}
+	})
 }

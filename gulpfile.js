@@ -10,7 +10,6 @@ var path = {
 	html: ['views/*.html', 'public/**/*.html'],
 	serverFiles: ['*.js', 'routes/*.js'],
 	scripts: 'public/js/*.js',
-	foundation: 'public/bower_components/foundation/scss/*',
 	scss: 'public/scss/*'
 };
 
@@ -29,14 +28,6 @@ gulp.task('styles', function (){
 			.pipe(gulp.dest('public/stylesheets'))
 			.pipe(livereload());
 });
-
-gulp.task('foundation', function (){
-	return gulp.src(path.foundation)
-			.pipe(concat('foundation.css'))
-			.pipe(sass())
-			.pipe(gulp.dest('public/stylesheets'))
-			.pipe(livereload());
-})
 
 gulp.task('html', function (){
 	return gulp.src(path.html)
@@ -66,4 +57,4 @@ gulp.task('server', function (){
 
 
 // Default task.
-gulp.task('default', ['foundation', 'scripts', 'styles', 'watch', 'server']);
+gulp.task('default', ['scripts', 'styles', 'watch', 'server']);

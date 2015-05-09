@@ -13,9 +13,8 @@ exports.create = function(req, res) {
 	}
 
 	// Check for existing users with the same email.
-	var duplicateSearch = User.findOne({'local.email': 'tofu'}).exec();
+	var duplicateSearch = User.findOne({'local.email': req.body.email}).exec();
 	duplicateSearch.then(function (err, result){
-		console.log('yoyoyo')
 		if (err) {
 			return res.status(500).json({ message: 'Server error.', data: err });
 		}

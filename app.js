@@ -9,8 +9,14 @@ var passport = require('passport');
 var session = require('express-session');
 var router = express.Router();
 
+// load models
+var User = require('./models/user');
+var Post = require('./models/post');
+var Blog = require('./models/blog');
+
 var app = express();
 
+require('./config/db');
 require('./config/passport')(passport);
 
 // view engine setup
@@ -25,7 +31,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// for passport
+// for passport sessions
 app.use(session({ 
   secret: '420braiseit',
   resave: false,

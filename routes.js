@@ -1,4 +1,4 @@
-var user = require('./routes/users.js');
+var user = require('./routes/users');
 var cookieAge = 1000 * 60 * 60 * 24 * 30 * 12; // have the cookie last a year
 
 module.exports = function(router, app, passport) {
@@ -13,7 +13,9 @@ module.exports = function(router, app, passport) {
 	 * Renders the home page. Checks if the user is logged in first.
 	 */
 	app.get('/', isLoggedIn, function(req, res) {
-		res.render('index');
+		res.render('index', {
+			currentUserId : req.user
+		});
 	});
 
 	/**

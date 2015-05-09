@@ -6,13 +6,16 @@ module.exports = function(router, app, passport) {
 	 * Renders the login page. Checks if the user is logged in first.
 	 */
 	app.get('/login', notLoggedIn, function(req, res) {
-		res.render('login');
+		res.render('login', {
+			
+		});
 	});
 
 	/**
 	 * Renders the home page. Checks if the user is logged in first.
 	 */
 	app.get('/', isLoggedIn, function(req, res) {
+		console.log("index")
 		res.render('index', {
 			currentUserId : req.user
 		});
@@ -24,20 +27,11 @@ module.exports = function(router, app, passport) {
 	 * @param  {Object} res           Response object
 	 * @param  {Function} next The function to get called upon success.
 	 */
-	app.post('/login', passport.authenticate('local', {
-			failureRedirect: '/login' // redirects back to the login page if authentication fails 
-		}), 
-		function(req, res, next) { // authentication callback
-			if (!req.body.rememberme) // check if remember me checkbox is checked
-				return next(); // proceed to homepage if it isn't checked
-			else {
-				res.cookie('remember_me', 'logged in', { path: '/', httpOnly: true, maxAge: cookieAge });
-				return next();
-			}
-		},
-		function(req, res) {
-			res.redirect('/'); // redirect to the home page after 
-		}
+	app.post('/login', 
+		passport.authenticate('local', {
+			successRedirect: '/',
+			failureRedirect: '/login'
+		})
 	);
 
 	/**
@@ -63,8 +57,9 @@ module.exports = function(router, app, passport) {
  * @param  {Function} next The function to be called if the user is authenticated
  */
 function isLoggedIn(req, res, next) {
+	console.log("yes")
 	// check if user is authenticated in session
-	if (req.isAuthenticated())
+	if (req.user)
 		return next();
 	// redirect back to landing page if user isn't authenticated
 	res.redirect('/login');
@@ -77,9 +72,13 @@ function isLoggedIn(req, res, next) {
  * @param  {Function} next The function to be called if the user isn't authenticated
  */
 function notLoggedIn(req, res, next) {
+	console.log("no")
 	// check if user isn't authenticated in session
-	if (!req.isAuthenticated())
+	if (!req.user) {
+		console.log("sorry")
 		return next();
+	}
 	// redirect to the home page if the user is authenticated
+	console.log("no again")
 	res.redirect('/');
 }

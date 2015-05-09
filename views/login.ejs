@@ -5,7 +5,7 @@
     <title>LiveBlog Login</title>
     <link rel="stylesheet" href="./vendor/foundation/css/normalize.css">
     <link rel="stylesheet" href="./vendor/foundation/css/foundation.css">
-    <link rel="stylesheet" href="./stylesheets/main.css">
+    <link rel="stylesheet" href="./css/main.css">
   </head>
 
   <body ng-controller='LoginController'>
@@ -18,26 +18,26 @@
         </ul>
       </nav>
     </div>
-    <form>
+    <form role="form" method="POST" action="/login">
         <div class="row">
           <h1>Log In</h1>
           <div class="small-12 column">
             <label>Email:
-              <input type="text" placeholder="Enter your email adress" />
+              <input type="text" placeholder="Enter your email adress" name="email"/>
             </label>
           </div>
         </div>
         <div class="row">
           <div class="small-12 column">
             <label>Password:
-              <input type="password" placeholder="Enter your password" />
+              <input type="password" placeholder="Enter your password" name-"password"/>
             </label>
           </div>
         </div>
 
         <div class="row">
           <div class="small-12 column">
-              <a class="button right">Log In</a>
+              <input type="submit" class="button right">Log In</input>
           </div>
         </div>
       </form>

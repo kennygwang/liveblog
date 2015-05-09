@@ -6,15 +6,18 @@ module.exports = function(router, app, passport) {
 	 * Renders the login page. Checks if the user is logged in first.
 	 */
 	app.get('/login', notLoggedIn, function(req, res) {
-		res.render('login');
+		res.render('login', {
+			
+		});
 	});
 
 	/**
 	 * Renders the home page. Checks if the user is logged in first.
 	 */
 	app.get('/', isLoggedIn, function(req, res) {
+		console.log("index")
 		res.render('index', {
-			currentUserId : req.user
+			currentUserId : req.user._id
 		});
 	});
 
@@ -24,16 +27,27 @@ module.exports = function(router, app, passport) {
 	 * @param  {Object} res           Response object
 	 * @param  {Function} next The function to get called upon success.
 	 */
-	app.post('/login', passport.authenticate('local', {
+	app.post('/login', 
+		passport.authenticate('local', {
 			failureRedirect: '/login' // redirects back to the login page if authentication fails 
 		}), 
 		function(req, res, next) { // authentication callback
 			if (!req.body.rememberme) // check if remember me checkbox is checked
 				return next(); // proceed to homepage if it isn't checked
-			else {
-				res.cookie('remember_me', 'logged in', { path: '/', httpOnly: true, maxAge: cookieAge });
+
+			var tokenString = stringGenerator.randomString(64); // generate a new random token
+			var token = new Token({ // create the token and assign the user's id to it
+				token: tokenString,
+				uid: req.user._id
+			});
+			// save the token and create a new cookie for the user.
+			token.save(function(err) {
+				if (err)
+					return next(err);
+
+				res.cookie('remember_me', token, { path: '/', httpOnly: true, maxAge: cookieAge });
 				return next();
-			}
+			});
 		},
 		function(req, res) {
 			res.redirect('/'); // redirect to the home page after 
@@ -46,6 +60,12 @@ module.exports = function(router, app, passport) {
 	 * @param  {Object} res 	 Response object
 	 */
 	app.get('/logout', function(req, res) {
+		if (req.user) // check if the user is logged in
+			Token.find({ uid: req.user._id }, function (err, tokens) {
+				for (var i = 0; i < tokens.length; i++)
+					tokens[i].remove();
+			}); // remove the remember me token from the db
+
 		res.clearCookie('remember_me'); // delete the cookie
 		req.logout();
 		res.redirect('/login'); // redirect back to the login page

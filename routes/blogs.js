@@ -4,7 +4,7 @@ var mongoose = require('mongoose')
   , Post = mongoose.model('Post');
 
 exports.createBlog = function(req, res) {
-
+	
 };
 
 exports.listBlogs = function(req, res) {

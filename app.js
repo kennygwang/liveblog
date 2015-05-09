@@ -17,6 +17,17 @@ var Blog = require('./models/blog');
 var app = express();
 
 require('./config/db');
+
+// for passport sessions
+app.use(session({ 
+  secret: '420braiseit',
+  resave: false,
+  saveUninitialized: true
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
 require('./config/passport')(passport);
 
 // view engine setup
@@ -30,16 +41,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
-// for passport sessions
-app.use(session({ 
-  secret: '420braiseit',
-  resave: false,
-  saveUninitialized: true
-}));
-
-app.use(passport.initialize());
-app.use(passport.session());
 
 app.use('/api', router);
 require('./routes')(router, app, passport);

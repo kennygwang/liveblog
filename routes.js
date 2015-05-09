@@ -79,14 +79,13 @@ module.exports = function(router, app, passport) {
 		res.render('register');
 	});
 
-	app.post('/register', users.create);
-
 	/**
 	 * All router routes begin with "/api". I.e. "/api/users/:id"
 	 */
 	// this route has GET
 	var userRoute = router.route('/users');
-	userRoute.get(users.list);
+	userRoute.get(users.list)
+	.post(users.create);
 
 	// this route has DELETE
 	var userEndpointRoute = router.route('/users/:id');

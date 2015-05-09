@@ -84,7 +84,6 @@ module.exports = function(router, app, passport) {
 
 };
 
-
 /**
  * Checks if the user is logged in, otherwise it redirects them to the landing page.
  * @param  {Object}   req  Request object

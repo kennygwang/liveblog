@@ -22,7 +22,8 @@
     "passport": "*",
     "passport-local": "*",
     "serve-favicon": "~2.2.0",
-    "validator": "*"
+    "validator": "*",
+    "passport-remember-me": "0.0.1"
   },
   "devDependencies": {
     "gulp": "~3.8.11",

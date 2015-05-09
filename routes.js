@@ -1,5 +1,6 @@
-var user = require('./routes/users');
-var cookieAge = 1000 * 60 * 60 * 24 * 30 * 12; // have the cookie last a year
+var users = require('./routes/users')
+  , blogs = require('./routes/blogs')
+  , cookieAge = 1000 * 60 * 60 * 24 * 30 * 12; // have the cookie last a year
 
 module.exports = function(router, app, passport) {
 	/**
@@ -17,7 +18,7 @@ module.exports = function(router, app, passport) {
 	app.get('/', isLoggedIn, function(req, res) {
 		console.log("index")
 		res.render('index', {
-			currentUserId : req.user._id
+			currentUser : req.user
 		});
 	});
 
@@ -78,10 +79,37 @@ module.exports = function(router, app, passport) {
 		res.render('register');
 	});
 
-	app.post('/register', user.create);
+	app.post('/register', users.create);
 
+	/**
+	 * All router routes begin with "/api". I.e. "/api/users/:id"
+	 */
+	// this route has GET
 	var userRoute = router.route('/users');
+	userRoute.get(users.list);
 
+	// this route has DELETE
+	var userEndpointRoute = router.route('/users/:id');
+	userEndpointRoute.delete(users.delete);
+
+	// this route has GET
+	var blogRoute = router.route('/blogs');
+	blogRoute.get(blogs.listBlogs);
+
+	// this route has GET, POST, DELETE
+	var blogEndpointRoute = router.route('/blogs/:id');
+	blogEndpointRoute.get(blogs.listBlogsById)
+	.post(blogs.createBlog)
+	.delete(blogs.deleteBlog);
+
+	// this route has GET, POST
+	var postRoute = router.route('/posts/:id');
+	postRoute.get(blogs.listPosts)
+	.post(blogs.createPost);
+
+	// this route has DELETE
+	var postEndpointRoute = router.route('/posts/:blogId/:postId');
+	postEndpointRoute.delete(blogs.deletePost);
 };
 
 

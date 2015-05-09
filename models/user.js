@@ -15,7 +15,7 @@ var User = new Schema({
     pub : {
         firstName       : { type: String },
         lastName        : { type: String },
-        blogs           : { type: [ Schema.Types.ObjectId ] }
+        blogs           : { type: [ Schema.Types.ObjectId ], default: [] }
     }
 });
 

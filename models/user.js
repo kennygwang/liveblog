@@ -1,10 +1,11 @@
 var mongoose = require('mongoose')
+  , Schema = mongoose.Schema
   , bcrypt = require('bcrypt')
   , SALT_WORK_FACTOR = 10
   , MAX_LOGIN_ATTEMPTS = 5
   , LOCK_TIME = 2 * 60 * 60 * 1000;
 
-var User = new mongoose.Schema({
+var User = new Schema({
 	local: { // used for local login
 	    email 			: { type: String, index: { unique: true } },
 	    password 		: { type: String },
@@ -14,7 +15,7 @@ var User = new mongoose.Schema({
     pub : {
         firstName       : { type: String },
         lastName        : { type: String },
-        blogs           : { type: [mongoose.Types.ObjectId] }
+        blogs           : { type: [ Schema.Types.ObjectId ] }
     }
 });
 

@@ -12,23 +12,35 @@ exports.create = function(req, res) {
 		return res.status(400).json({ message: 'Empty field.', data: {} }); // bad request status
 	}
 
-	var user = new User({
-		local: {
-			email: req.body.email,
-			password: req.body.password
-		},
-		pub: {
-			firstName: req.body.firstName,
-			lastName: req.body.lastName
-		}
-	});
-
-	user.save(function(err) {
+	// Check for existing users with the same email.
+	var duplicateSearch = User.findOne({'local.email': 'tofu'}).exec();
+	duplicateSearch.then(function (err, result){
+		console.log('yoyoyo')
 		if (err) {
-			res.status(500).json({ message: 'Server error.', data: err });
-		} else {
-			res.status(201).json({ message: 'User created.', data: user }) // user created status
+			return res.status(500).json({ message: 'Server error.', data: err });
 		}
+		if (result) {
+			return res.status(400).json({ message: 'User already exists.', data: err });
+		}
+
+		var user = new User({
+			local: {
+				email: req.body.email,
+				password: req.body.password
+			},
+			pub: {
+				firstName: req.body.firstName,
+				lastName: req.body.lastName
+			}
+		});
+
+		user.save(function(err) {
+			if (err) {
+				res.status(500).json({ message: 'Server error.', data: err });
+			} else {
+				res.status(201).json({ message: 'User created.', data: user }) // user created status
+			}
+		});
 	});
 };
 

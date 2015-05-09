@@ -51,6 +51,15 @@ module.exports = function(router, app, passport) {
 		res.redirect('/login'); // redirect back to the login page
 	});
 
+	/**
+	 * Renders the register page.
+	 */
+	app.get('/register', function (req, res){
+		res.render('register');
+	});
+
+	app.post('/register', user.create);
+
 	var userRoute = router.route('/users');
 
 };

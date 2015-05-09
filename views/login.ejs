@@ -1,21 +1,49 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>LiveBlog Login</title>
-  <link rel="stylesheet" href="./bower_components/foundation/css/normalize.css">
-  <link rel="stylesheet" href="./bower_components/foundation/css/foundation.css">
-  <link rel="stylesheet" href="./stylesheets/main.css">
-  
-  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-</head>
+<!DOCTYPE html>
+<html lang="en" ng-app='liveblog'>
+  <head>
+    <meta charset="UTF-8">
+    <title>LiveBlog Login</title>
+    <link rel="stylesheet" href="./vendor/foundation/css/normalize.css">
+    <link rel="stylesheet" href="./vendor/foundation/css/foundation.css">
+    <link rel="stylesheet" href="./stylesheets/main.css">
+  </head>
 
+  <body ng-controller='LoginController'>
+    <div class="contain-to-grid" id="nav-bar-wrapper">
+      <nav class="top-bar" data-topbar role="navigation">
+        <ul class="title-area">
+          <li class="name">
+            <h1><a href="./index.html">LiveBlog&#8482;</a></h1>
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <form>
+        <div class="row">
+          <h1>Log In</h1>
+          <div class="small-12 column">
+            <label>Email:
+              <input type="text" placeholder="Enter your email adress" />
+            </label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="small-12 column">
+            <label>Password:
+              <input type="password" placeholder="Enter your password" />
+            </label>
+          </div>
+        </div>
 
-<body>
-	<div>login/register</div>
+        <div class="row">
+          <div class="small-12 column">
+              <a class="button right">Log In</a>
+          </div>
+        </div>
+      </form>
 
-  <script src="./bower_components/jquery/dist/jquery.min.js"></script>
-  <script src="./js/main.js"></script>
-</body>
+    <script src="./vendor/jquery/dist/jquery.min.js"></script>
+    <script src="./vendor/angular/angular.min.js"></script>
+  </body>
 </html>
 

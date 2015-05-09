@@ -26,7 +26,7 @@ gulp.task('scripts', function (){
 gulp.task('styles', function (){
 	return gulp.src(path.scss)
 			.pipe(sass())
-			.pipe(gulp.dest('public/stylesheets'))
+			.pipe(gulp.dest('public/css'))
 			.pipe(livereload());
 });
 
@@ -34,7 +34,7 @@ gulp.task('foundation', function (){
 	return gulp.src(path.foundation)
 			.pipe(concat('foundation.css'))
 			.pipe(sass())
-			.pipe(gulp.dest('public/stylesheets'))
+			.pipe(gulp.dest('public/css'))
 			.pipe(livereload());
 })
 

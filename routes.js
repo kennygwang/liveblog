@@ -17,7 +17,7 @@ module.exports = function(router, app, passport) {
 	app.get('/', isLoggedIn, function(req, res) {
 		console.log("index")
 		res.render('index', {
-			currentUserId : req.user
+			currentUserId : req.user._id
 		});
 	});
 
@@ -29,9 +29,29 @@ module.exports = function(router, app, passport) {
 	 */
 	app.post('/login', 
 		passport.authenticate('local', {
-			successRedirect: '/',
-			failureRedirect: '/login'
-		})
+			failureRedirect: '/login' // redirects back to the login page if authentication fails 
+		}), 
+		function(req, res, next) { // authentication callback
+			if (!req.body.rememberme) // check if remember me checkbox is checked
+				return next(); // proceed to homepage if it isn't checked
+
+			var tokenString = stringGenerator.randomString(64); // generate a new random token
+			var token = new Token({ // create the token and assign the user's id to it
+				token: tokenString,
+				uid: req.user._id
+			});
+			// save the token and create a new cookie for the user.
+			token.save(function(err) {
+				if (err)
+					return next(err);
+
+				res.cookie('remember_me', token, { path: '/', httpOnly: true, maxAge: cookieAge });
+				return next();
+			});
+		},
+		function(req, res) {
+			res.redirect('/'); // redirect to the home page after 
+		}
 	);
 
 	/**
@@ -40,6 +60,12 @@ module.exports = function(router, app, passport) {
 	 * @param  {Object} res 	 Response object
 	 */
 	app.get('/logout', function(req, res) {
+		if (req.user) // check if the user is logged in
+			Token.find({ uid: req.user._id }, function (err, tokens) {
+				for (var i = 0; i < tokens.length; i++)
+					tokens[i].remove();
+			}); // remove the remember me token from the db
+
 		res.clearCookie('remember_me'); // delete the cookie
 		req.logout();
 		res.redirect('/login'); // redirect back to the login page
@@ -57,9 +83,8 @@ module.exports = function(router, app, passport) {
  * @param  {Function} next The function to be called if the user is authenticated
  */
 function isLoggedIn(req, res, next) {
-	console.log("yes")
 	// check if user is authenticated in session
-	if (req.user)
+	if (req.isAuthenticated())
 		return next();
 	// redirect back to landing page if user isn't authenticated
 	res.redirect('/login');
@@ -72,13 +97,9 @@ function isLoggedIn(req, res, next) {
  * @param  {Function} next The function to be called if the user isn't authenticated
  */
 function notLoggedIn(req, res, next) {
-	console.log("no")
 	// check if user isn't authenticated in session
-	if (!req.user) {
-		console.log("sorry")
+	if (!req.isAuthenticated())
 		return next();
-	}
 	// redirect to the home page if the user is authenticated
-	console.log("no again")
 	res.redirect('/');
 }

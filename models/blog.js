@@ -4,11 +4,11 @@ var mongoose = require('mongoose')
 
 var Blog = new Schema({
 	authorId	: { type: Schema.Types.ObjectId },
-	authorName	: { type: String },
-	posts 		: { type: [ Post ] },
-	timeCreated	: { type: Date },
-	lastUpdated	: { type: Date },
-	title		: { type: String }
+	authorName	: { type: String, default: "" },
+	posts 		: { type: [ Post ], default: [] },
+	timeCreated	: { type: Date, default: Date.now() },
+	lastUpdated	: { type: Date, default: Date.now() },
+	title		: { type: String, required: true }
 });
 
 module.exports = mongoose.model('Blog', Blog);

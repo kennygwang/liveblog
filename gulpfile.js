@@ -25,7 +25,7 @@ gulp.task('scripts', function (){
 gulp.task('styles', function (){
 	return gulp.src(path.scss)
 			.pipe(sass())
-			.pipe(gulp.dest('public/stylesheets'))
+			.pipe(gulp.dest('public/css'))
 			.pipe(livereload());
 });
 
@@ -33,8 +33,6 @@ gulp.task('html', function (){
 	return gulp.src(path.html)
 			.pipe(livereload());
 });
-
-
 
 // Watch files for changes.
 gulp.task('watch', function (){
@@ -54,7 +52,6 @@ gulp.task('server', function (){
 		console.log('Restarted server.')
 	});
 });
-
 
 // Default task.
 gulp.task('default', ['scripts', 'styles', 'watch', 'server']);

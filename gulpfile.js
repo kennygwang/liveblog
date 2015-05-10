@@ -44,8 +44,10 @@ gulp.task('watch', function (){
 
 gulp.task('server', function (){
 	nodemon({
+		ignore: 'public/',
 		script: '',
 		ext: 'js',
+		ignore: 'public/',
 		env: { 'NODE_ENV': 'development' }
 
 	}).on('restart', function (){

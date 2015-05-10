@@ -10,16 +10,13 @@ module.exports = function(router, app, passport) {
 	 * Renders the login page. Checks if the user is logged in first.
 	 */
 	app.get('/login', notLoggedIn, function(req, res) {
-		res.render('login', {
-			
-		});
+		res.render('login');
 	});
 
 	/**
 	 * Renders the home page. Checks if the user is logged in first.
 	 */
 	app.get('/', isLoggedIn, function(req, res) {
-		console.log("index")
 		res.render('index', {
 			currentUserId : req.user._id
 		});
@@ -36,8 +33,9 @@ module.exports = function(router, app, passport) {
 			failureRedirect: '/login' // redirects back to the login page if authentication fails 
 		}), 
 		function(req, res, next) { // authentication callback
-			if (!req.body.rememberme) // check if remember me checkbox is checked
+			if (!req.body.rememberme) { // check if remember me checkbox is checked
 				return next(); // proceed to homepage if it isn't checked
+			}
 
 			var tokenString = stringGenerator.randomString(64); // generate a new random token
 			var token = new Token({ // create the token and assign the user's id to it
@@ -46,8 +44,9 @@ module.exports = function(router, app, passport) {
 			});
 			// save the token and create a new cookie for the user.
 			token.save(function(err) {
-				if (err)
+				if (err) {
 					return next(err);
+				}
 
 				res.cookie('remember_me', token, { path: '/', httpOnly: true, maxAge: cookieAge });
 				return next();
@@ -64,11 +63,13 @@ module.exports = function(router, app, passport) {
 	 * @param  {Object} res 	 Response object
 	 */
 	app.get('/logout', function(req, res) {
-		if (req.user) // check if the user is logged in
+		if (req.user) { // check if the user is logged in
 			Token.find({ uid: req.user._id }, function (err, tokens) {
-				for (var i = 0; i < tokens.length; i++)
+				for (var i = 0; i < tokens.length; i++) {
 					tokens[i].remove();
+				}
 			}); // remove the remember me token from the db
+		}
 
 		res.clearCookie('remember_me'); // delete the cookie
 		req.logout();
@@ -87,31 +88,37 @@ module.exports = function(router, app, passport) {
 	 */
 	// this route has GET
 	var userRoute = router.route('/users');
-	userRoute.get(users.list)
-	.post(users.create);
+	userRoute
+			.get(users.list)
+			.post(users.create);
 
 	// this route has DELETE
 	var userEndpointRoute = router.route('/users/:id');
-	userEndpointRoute.delete(users.delete);
+	userEndpointRoute
+			.delete(users.delete);
 
 	// this route has GET
 	var blogRoute = router.route('/blogs');
-	blogRoute.get(blogs.listBlogs);
+	blogRoute
+			.get(blogs.listBlogs);
 
 	// this route has GET, POST, DELETE
 	var blogEndpointRoute = router.route('/blogs/:id');
-	blogEndpointRoute.get(blogs.listBlogsById)
-	.post(blogs.createBlog)
-	.delete(blogs.deleteBlog);
+	blogEndpointRoute
+			.get(blogs.listBlogsById)
+			.post(blogs.createBlog)
+			.delete(blogs.deleteBlog);
 
 	// this route has GET, POST
 	var postRoute = router.route('/posts/:id');
-	postRoute.get(blogs.listPosts)
-	.post(blogs.createPost);
+	postRoute
+			.get(blogs.listPosts)
+			.post(blogs.createPost);
 
 	// this route has DELETE
 	var postEndpointRoute = router.route('/posts/:blogId/:postId');
-	postEndpointRoute.delete(blogs.deletePost);
+	postEndpointRoute
+			.delete(blogs.deletePost);
 };
 
 /**
@@ -122,8 +129,9 @@ module.exports = function(router, app, passport) {
  */
 function isLoggedIn(req, res, next) {
 	// check if user is authenticated in session
-	if (req.isAuthenticated())
+	if (req.isAuthenticated()) {
 		return next();
+	}
 	// redirect back to landing page if user isn't authenticated
 	res.redirect('/login');
 }
@@ -136,8 +144,9 @@ function isLoggedIn(req, res, next) {
  */
 function notLoggedIn(req, res, next) {
 	// check if user isn't authenticated in session
-	if (!req.isAuthenticated())
+	if (!req.isAuthenticated()) {
 		return next();
+	}
 	// redirect to the home page if the user is authenticated
 	res.redirect('/');
 }

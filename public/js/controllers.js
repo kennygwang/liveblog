@@ -2,12 +2,22 @@ var liveblog = angular.module('liveblog', ['ngRoute']),
     socket = io.connect('http://localhost:3000');
 
 liveblog.controller('NavController', ['$scope', '$http', '$location', function($scope, $http, $location) {
+  // Bind the open event for the modal.
+  $('.top-bar-section').on('click', '#create-new-blog', function (){
+      $('#createNewBlogModal').foundation('reveal', 'open');
+  });
+
+  // Bind the close event for the modal.
+  $('.close-reveal-modal, .close-modal').click(function (){
+      $('#createNewBlogModal').foundation('reveal', 'close');
+  });
+
   $scope.createNewBlog = function () {
     // make API call to create new blog
     // redirect to new blog page with something like $location.path('/#/blog/:blogId')
     $http.post('/api/blogs/' + currentUserId).success(function(data){
       $location.path('/#/blogs/' + data.data._id);
-    })
+    });
   };
 }]);
 
@@ -100,4 +110,19 @@ liveblog.controller('BlogController', ['$scope', '$http', '$routeParams', functi
       });
     });
   };
+
+  $scope.updateTitle = function () {
+    // make the API call to change the blog title to whatever $scope.title is
+    // update the DOM title field on success
+  };
+
+  // Bind the open event for the modal.
+  $('form').on('click', '#blog-title', function (){
+      $('#editBlogTitleModal').foundation('reveal', 'open');
+  });
+
+  // Bind the close event for the modal.
+  $('.close-reveal-modal, .close-modal').click(function (){
+      $('#editBlogTitleModal').foundation('reveal', 'close');
+  });
 }]);

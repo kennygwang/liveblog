@@ -19,7 +19,7 @@ liveblog.controller('BloglistController', ['$scope', '$http', function($scope, $
     };
 
     // Fetch the list of blogs.
-    $http.get('/api/blogs')
+    $http.get('/api/blogs/'+currentUserId)
         .success(function (data){
             if (data.message.slice(0, 2) == 'OK'){
                 // Add a pretty date created field.
@@ -64,17 +64,26 @@ liveblog.controller('BloglistController', ['$scope', '$http', function($scope, $
 }]);
 
 liveblog.controller('BlogController', ['$scope', '$http', '$routeParams', function($scope, $http, $routeParams) {
-  $scope.postList = []; // list of posts in the blog
+  // $scope.postList = []; // list of posts in the blog
+  $scope.blog = {};
 
-  socket.on($routeParams.blogId, function(data){
-    $scope.postList.unshift(data.post);
+  var blogId = $routeParams.blogId;
+
+  // Fetch all posts onload.
+  $http.get('/api/blogs/'+blogId)
+        .success(function (blog){
+            $scope.blog = blog;
+        });
+
+  socket.on(blogId, function(data){
+    $scope.blog.posts.unshift(data.post);
   });
 
   $scope.createPost = function () {
     // make API call to send postData to server,
       // which sends the post to audience 
       // and responds with a post JSON object
-    // add post to $scope.postList
+    // add post to $scope.blog.posts
     // ng-repeat handles the rendering
     var postData = {
           postType: $scope.postType,
@@ -83,19 +92,19 @@ liveblog.controller('BlogController', ['$scope', '$http', '$routeParams', functi
           url: $scope.url
         };
 
-    $http.post('/api/posts/' + $routeParams.blogId).success(function(data){
+    $http.post('/api/posts/' + blogId).success(function(data){
       socket.emit('new post created', {
-        blogId: $routeParams.blogId,
+        blogId: blogId,
         post: data.data
       });
     });
   };
 
   $scope.deletePost = function (postId) {
-    // find the post in postList array and remove it
+    // find the post in blog.posts array and remove it
     // ng-repeat handles the rendering
     $http.delete('/api/posts/' + postId).success(function(){
-      $scope.postList = $scope.postList.filter(function(blogpost){
+      $scope.blog.posts = $scope.blog.posts.filter(function(blogpost){
         return blogpost._id != postId;
       });
     });

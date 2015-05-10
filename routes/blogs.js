@@ -121,7 +121,15 @@ exports.createPost = function(req, res) {
 		} else if (!blog) {
 			res.status(404).json({ message: "Blog not found.", data: err });
 		} else {
-			blog.posts.push(post); // update the blog object with the new post
+			console.log('POSTS', blog.posts)
+			console.log('*', post)
+
+
+			if (blog.posts){
+				blog.posts.push(post); // update the blog object with the new post
+			} else {
+				blog.posts = [post];
+			}
 			blog.save(function(err) {
 				if (err) {
 					res.status(500).json({ message: "Server error.", data: err });

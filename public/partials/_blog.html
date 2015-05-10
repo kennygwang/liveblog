@@ -60,7 +60,7 @@
 
 <div class="row">
   <ul class="small-block-grid-2">
-    <li ng-repeat="post in postList">
+    <li ng-repeat="post in blog.posts">
       <article class="post post-with-text" ng-if="post.postType == 'text'">
         <header class="post-header">{{post.timeCreated}}</header>
         <div class="post-content">

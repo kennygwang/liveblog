@@ -5,7 +5,7 @@ var mongoose = require('mongoose')
 var Blog = new Schema({
 	authorId	: { type: Schema.Types.ObjectId },
 	authorName	: { type: String, default: "" },
-	posts 		: { type: [ Post ], default: [] },
+	posts 		: { type: [ Post.schema ], default: [] },
 	timeCreated	: { type: Date, default: Date.now() },
 	lastUpdated	: { type: Date, default: Date.now() },
 	title		: { type: String, required: true }

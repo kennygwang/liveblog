@@ -4,16 +4,21 @@ var users = require('./routes/users')
 
 module.exports = function(io){
     io.sockets.on('connection', function (socket) {
-        console.log('New client connected.'+socket.id);
+        //console.log('New client connected.'+socket.id);
 
-        setInterval(function (){
-            socket.emit('ping', 'woooo')
-        }, 5000);
+        // User starts watching a blog
+        socket.on('watch', function(data) {
+        	//console.log(typeof data.blogId);
+        	//console.log(socket.id + ' watching blog ' + data.blogId);
+        	socket.join(data.blogId);
+        })
 
         // when a new post message is emitted, emit the post and blog ID to everyone
-        socket.on('new post created', function(data) {
-            socket.emit(data.blogId, { post: data.post });
-            console.log('Broadcasting post over socket channel: '+data.blogId)
+        socket.on('new post', function(data) {
+        		//console.log(typeof data.blogId);
+        		//console.log(data.post);
+            io.to(data.blogId).emit('send post', { post: data.post });
+            //console.log('-----\nBroadcasting post over socket channel: '+data.blogId + '\n--------');
         });
     });
 };

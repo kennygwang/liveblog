@@ -110,9 +110,9 @@ liveblog.controller('BlogController', ['$scope', '$http', '$routeParams', '$sce'
         console.log('ping')
     })
 
-  socket.on(blogId, function(data){
-    console.log('Got message!', data);
-
+  socket.emit('watch', {blogId: blogId});
+  //console.log('connected to blog ' + blogId);
+  socket.on('send post', function(data) {
     // Add pretty time.
     data.post.prettyTimeCreated = (new Date(data.post.timeCreated)).toLocaleTimeString();
     $scope.blog.posts.unshift(data.post);
@@ -121,6 +121,8 @@ liveblog.controller('BlogController', ['$scope', '$http', '$routeParams', '$sce'
             });
     $scope.$digest();
   });
+
+
   isSocketBinded = true;
   console.log('Listening over socket channel: '+blogId);
 
@@ -138,7 +140,7 @@ liveblog.controller('BlogController', ['$scope', '$http', '$routeParams', '$sce'
         };
 
     $http.post('/api/posts/' + blogId, postData).success(function(data){
-      socket.emit('new post created', {
+      socket.emit('new post', {
         blogId: blogId,
         post: data.data
       });

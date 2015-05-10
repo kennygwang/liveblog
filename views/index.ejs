@@ -5,19 +5,17 @@
     <title>LiveBlog</title>
     <link rel="stylesheet" href="./vendor/foundation/css/normalize.css">
     <link rel="stylesheet" href="./vendor/foundation/css/foundation.css">
-    <link rel="stylesheet" href="./stylesheets/main.css">
+    <link rel="stylesheet" href="./css/main.css">
     <!-- pass the logged in user object into scope for the js -->
-    <script>var currentUser = <%= currentUser %></script>
+    <script>var currentUserId = "<%= currentUserId %>"</script>
   </head>
-
 
   <body>
   	<div>Hello ayyyyy lmao</div>
-    <%= currentUserId %>
     <script src="./vendor/jquery/dist/jquery.min.js"></script>
     <script src="./vendor/angular/angular.min.js"></script>
     <script src="./vendor/angular-route/angular-route.min.js"></script>
-    <script src="./javascripts/controllers.js"></script>
-    <script src="./javascripts/routers.js"></script>
+    <script src="./js/controllers.js"></script>
+    <script src="./js/router.js"></script>
   </body>
 </html>

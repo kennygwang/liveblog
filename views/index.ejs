@@ -22,6 +22,7 @@
           <ul class="right">
             <li><a ng-click="createNewBlog()">+ New Blog</a></li>
             <li><a href="#/users/<%= currentUserId %>">My Blogs</a></li>
+            <li><a href="/logout">Log Out</a></li>
           </ul>
         </section>
       </nav>
@@ -31,6 +32,7 @@
       <div ng-view></div>
     </div>
 
+    <script src="/socket.io/socket.io.js"></script>
     <script src="./vendor/jquery/dist/jquery.min.js"></script>
     <script src="./vendor/foundation/js/foundation.min.js"></script>
     <script src="./vendor/foundation/js/foundation/foundation.reveal.js"></script>
@@ -38,6 +40,7 @@
     <script src="./vendor/angular-route/angular-route.min.js"></script>
     <script src="./js/controllers.js"></script>
     <script src="./js/router.js"></script>
+    <script src="./js/main.js"></script>
     <script>
       $(document).foundation();
     </script>

@@ -18,7 +18,7 @@ module.exports = function(router, app, passport) {
 	app.get('/', isLoggedIn, function(req, res) {
 		console.log("index")
 		res.render('index', {
-			currentUser : req.user
+			currentUserId : req.user._id
 		});
 	});
 

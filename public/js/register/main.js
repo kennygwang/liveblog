@@ -14,8 +14,8 @@ angular.module('signup', [])
         $scope.register = function (e){
             // e.preventDefault();
 
-            // $http.post('/api/users', $scope.user)
-            $http.post('/register', $scope.user)
+            $http.post('/api/users', $scope.user)
+            // $http.post('/register', $scope.user)
                 .success(function (data){
                     $scope.submitMessage = 'Account created!';
                     $scope.stateClass = 'success';

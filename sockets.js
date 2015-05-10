@@ -6,6 +6,10 @@ module.exports = function(io){
     io.sockets.on('connection', function (socket) {
         console.log('New client connected.'+socket.id);
 
+        setInterval(function (){
+            socket.emit('ping', 'woooo')
+        }, 5000);
+
         // when a new post message is emitted, emit the post and blog ID to everyone
         socket.on('new post created', function(data) {
             socket.emit(data.blogId, { post: data.post });

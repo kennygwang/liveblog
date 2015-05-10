@@ -144,6 +144,12 @@ exports.deleteBlog = function(req, res) {
 exports.createPost = function(req, res) {
 	var blogId = mongoose.Types.ObjectId(req.params.id);
 	var post = new Post(req.body);
+	post.timeCreated = Date.now();
+ 	
+ 	if ((post.postType == 'text' && !post.text) ||
+ 			(post.postType != 'text' && (!post.caption || !post.url))){
+ 		return res.status(400).json({ message: "Fields are empty.", data: {} });
+ 	}
 
 	Blog.findById(blogId, function(err, blog) {
 		if (err) {

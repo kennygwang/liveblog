@@ -9,7 +9,7 @@ var livereload = require('gulp-livereload');
 var path = {
 	html: ['views/*.html', 'public/**/*.html'],
 	serverFiles: ['*.js', 'routes/*.js'],
-	scripts: 'public/js/*.js',
+	scripts: ['public/js/*.js', 'public/js/**/*.js'],
 	scss: 'public/scss/*'
 };
 
@@ -17,7 +17,7 @@ var path = {
 // Define tasks.
 gulp.task('scripts', function (){
 	return gulp.src(path.scripts)
-			.pipe(gulp.dest('public/js'))
+			// .pipe(gulp.dest('public/js'))
 			.pipe(livereload());
 			// .pipe(uglify());
 });

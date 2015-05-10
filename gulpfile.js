@@ -10,7 +10,7 @@ var path = {
 	html: ['views/*.html', 'public/**/*.html'],
 	serverFiles: ['*.js', 'routes/*.js'],
 	scripts: ['public/js/*.js', 'public/js/**/*.js'],
-	scss: 'public/scss/*'
+	scss: 'scss/*'
 };
 
 

@@ -1,0 +1,99 @@
+<div ng-controller="BlogController">
+<form novalidate>
+  <div class="row">
+    <div class="small-6 columns">
+      <label>Blog Title:
+        <input type="text" ng-model="title" placeholder="What's this blog about?"/>
+      </label>
+    </div>
+    <div class="small-6 columns">
+      <label>Link to share:
+        <input id="share-link" type="text" value="https://www.liveblog.com/blogs/420" />
+      </label>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="small-12 column">
+      <label>Post Type:
+        <select ng-model="postType" ng-init="postType='text'">
+          <option value="text">Text</option>
+          <option value="image">Image</option>
+          <option value="video">Video</option>
+        </select>
+      </label>
+    </div>
+  </div>
+
+  <div class="row" ng-show="postType == 'image' || postType == 'video'">
+    <div class="small-12 column">
+      <label>
+        <span ng-show="postType == 'image'">Image URL:</span>
+        <span ng-show="postType == 'video'">Video URL:</span>
+        <input ng-model="url" type="text" placeholder="Paste in a URL" />
+      </label>
+    </div>
+  </div>
+
+  <div class="row" ng-show="postType == 'image' || postType == 'video'">
+    <div class="small-12 column">
+      <label>Caption:
+        <input ng-model="caption" type="text" ng-show="postType == 'image'" placeholder="Enter a caption for the image" />
+        <input ng-model="caption" type="text" ng-show="postType == 'video'" placeholder="Enter a caption for the video" />
+      </label>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="small-12 column">
+      <label>Post Content:
+        <textarea ng-model="content" placeholder="Say something about the post..."></textarea>
+      </label>
+    </div>
+  </div>
+  <div class="row">
+    <div class="small-12 column">
+      <a ng-click="createPost()" class="button right">Post</a>
+    </div>
+  </div>
+</form>
+
+<div class="row">
+  <ul class="small-block-grid-2">
+    <li>
+      <article class="post post-with-image">
+        <header class="post-header">6:09 p.m.</header>
+        <figure class="post-content">
+          <div class="post-image">
+            <img src="../img/crispy-tofu.png">
+          </div>
+          <figcaption class="post-caption">
+            <h3>Crispy Tofu</h3>
+            <p>Things that are as good as Golden Harbor's Crispy Tofu are typically illegal in the United States of America.</p>
+          </figcaption>
+        </figure>
+        <footer class="post-footer">
+          <img src="../img/sharing-options.png">
+        </footer>
+      </article>
+    </li>
+    <li>
+      <article class="post post-with-image">
+        <header class="post-header">6:00 p.m.</header>
+        <figure class="post-content">
+          <div class="post-image">
+            <img src="../img/gh.png">
+          </div>
+          <figcaption class="post-caption">
+            <h3>Hungry? Go here.</h3>
+            <p>Golden Harbor. Heaven on earth at Neil and Springfield.<br/>Joseph Golden Rabbit would eat here.</p>
+          </figcaption>
+        </figure>
+        <footer class="post-footer">
+          <img src="../img/sharing-options.png">
+        </footer>
+      </article>
+    </li>
+  </ul>
+</div>
+</div>

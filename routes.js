@@ -1,5 +1,8 @@
 var users = require('./routes/users')
   , blogs = require('./routes/blogs')
+  , stringGenerator = require('./stringGenerator')
+  , mongoose = require('mongoose')
+  , Token = mongoose.model('Token')
   , cookieAge = 1000 * 60 * 60 * 24 * 30 * 12; // have the cookie last a year
 
 module.exports = function(router, app, passport) {

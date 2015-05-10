@@ -44,6 +44,7 @@ gulp.task('watch', function (){
 
 gulp.task('server', function (){
 	nodemon({
+		ignore: 'public/',
 		script: '',
 		ext: 'js',
 		env: { 'NODE_ENV': 'development' }

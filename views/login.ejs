@@ -20,7 +20,9 @@
     </div>
     <form role="form" method="POST" action="/login">
         <div class="row">
-          <h1>Log In</h1>
+          <div class="column">
+            <h1>Log In</h1>
+          </div>
           <div class="small-12 column">
             <label>Email:
               <input type="text" placeholder="Enter your email adress" name="username"/>
@@ -41,8 +43,10 @@
           </div>
         </div>
       </form>
-      <div>
-        <p>Don't have an account? <a href="/register">sign me up</a></p>
+      <div class="row">
+        <div class="column">
+          <p>Don't have an account? <a href="/register">sign me up</a></p>
+        </div>
       </div>
     <script src="./vendor/jquery/dist/jquery.min.js"></script>
     <script src="./vendor/angular/angular.min.js"></script>

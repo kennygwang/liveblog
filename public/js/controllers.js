@@ -3,6 +3,8 @@ var liveblog = angular.module('liveblog', ['ngRoute'])
     , isSocketBinded = false;
 
 liveblog.controller('NavController', ['$scope', '$http', '$location', function($scope, $http, $location) {
+  $scope.newBlogTitle = '';
+
   // Bind the open event for the modal.
   $('.top-bar-section').on('click', '#create-new-blog', function (){
       $('#createNewBlogModal').foundation('reveal', 'open');
@@ -16,10 +18,11 @@ liveblog.controller('NavController', ['$scope', '$http', '$location', function($
   $scope.createNewBlog = function () {
     // make API call to create new blog
     // redirect to new blog page with something like $location.path('/#/blog/:blogId')
-    $http.post('/api/blogs/' + currentUserId).success(function(data){
-        alert('done')
-      $location.path('/#/blogs/' + data.data._id);
-    });
+    $http.post('/api/blogs/' + currentUserId, {title: $scope.newBlogTitle})
+            .success(function(data){
+                $('#createNewBlogModal').foundation('reveal', 'close');
+                $location.path('/blogs/' + data.data._id);
+            });
   };
 }]);
 
@@ -50,6 +53,7 @@ liveblog.controller('BloglistController', ['$scope', '$http', function($scope, $
 
         $scope.confirmDelete.blogTitle = $(this).data('title');
         $scope.confirmDelete.blogId = $(this).data('id');
+        $scope.$digest();
         $('#confirmModal').foundation('reveal', 'open');
     });
 
@@ -65,6 +69,9 @@ liveblog.controller('BloglistController', ['$scope', '$http', function($scope, $
         // Actually delete the blog.
         $http.delete('/api/blogs/'+$scope.confirmDelete.blogId)
             .success(function (data){
+                $scope.bloglist = $scope.bloglist.filter(function (blog){
+                    return blog._id !== $scope.confirmDelete.blogId;
+                });
                 $('#confirmModal').foundation('reveal', 'close');
             })
             .error(function (data){
@@ -85,6 +92,8 @@ liveblog.controller('BlogController', ['$scope', '$http', '$routeParams', functi
   $http.get('/api/blog/'+blogId)
         .success(function (res){
             var blog = res.data;
+
+            // Add pretty time.
             blog.posts.map(function (post){
                 post.prettyTimeCreated = (new Date(post.timeCreated)).toLocaleTimeString();
             });
@@ -92,14 +101,22 @@ liveblog.controller('BlogController', ['$scope', '$http', '$routeParams', functi
                 return (new Date(b.timeCreated)) - (new Date(a.timeCreated));
             });
 
-            $scope.blog = res.data;
+            $scope.blog = blog;
         });
+
+
+    socket.on('ping', function (){
+        console.log('ping')
+    })
 
   socket.on(blogId, function(data){
     console.log('Got message!', data);
 
-    $scope.blog.posts.unshift(data.post).sort(function (a, b){
-                return (new Date(a.timeCreated)) - (new Date(b.timeCreated));
+    // Add pretty time.
+    data.post.prettyTimeCreated = (new Date(data.post.timeCreated)).toLocaleTimeString();
+    $scope.blog.posts.unshift(data.post);
+    $scope.blog.posts = $scope.blog.posts.sort(function (a, b){
+                return (new Date(b.timeCreated)) - (new Date(a.timeCreated));
             });
     $scope.$digest();
   });

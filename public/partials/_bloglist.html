@@ -24,7 +24,7 @@
   <div id="confirmModal" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog" ng-model="confirmDelete">
     <h2 id="modalTitle">Delete this blog?</h2>
     <p class="lead">{{confirmDelete.blogTitle}}</p>
-    <button class="button confirm-modal">Delete</button>
+    <button class="button confirm-modal" ng-click="deleteBlog()">Delete</button>
     <button class="button secondary close-modal">Cancel</button>
     <a class="close-reveal-modal" aria-label="Close">&#215;</a>
   </div>

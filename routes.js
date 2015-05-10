@@ -107,7 +107,8 @@ module.exports = function(router, app, passport) {
 	blogEndpointRoute
 			.get(blogs.listBlogsById)
 			.post(blogs.createBlog)
-			.delete(blogs.deleteBlog);
+			.delete(blogs.deleteBlog)
+			.put(blogs.updateBlogTitle);
 
 	var blogIdRoute = router.route('/blog/:blogId');
 	blogIdRoute

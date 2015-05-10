@@ -89,8 +89,22 @@ exports.listBlogsById = function(req, res) {
 	});
 };
 
-exports.updateBlog = function(req, res) {
+/**
+ * Update the blog given by the blog ID endpoint.
+ * @param  {Object} req Request object
+ * @param  {Object} res Response object
+ */
+exports.updateBlogTitle = function(req, res) {
+	var id = mongoose.Types.ObjectId(req.params.id);
+	var newTitle = req.body.title;
 
+	Blog.update({_id: req.params.id}, {$set: {'title': newTitle}}, function(err, blog) {
+		if (err) {
+			res.status(500).json({ message: "Server error.", data: err });
+		} else {
+			res.status(200).json({ message: "OK.", data: blog })
+		}
+	});
 };
 
 /**

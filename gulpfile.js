@@ -46,6 +46,7 @@ gulp.task('server', function (){
 	nodemon({
 		script: '',
 		ext: 'js',
+		ignore: 'public/',
 		env: { 'NODE_ENV': 'development' }
 
 	}).on('restart', function (){

@@ -1,3 +1,32 @@
 <div ng-controller="BloglistController">
-  My blogs
+  <h1>My blogs</h1>
+
+  <div class="row bloglist-container">
+    <table>
+      <thead>
+        <tr>
+          <th width="200">Date</th>
+          <th width="800">Blog Name</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="blog in bloglist">
+          <td>{{blog.prettyDateCreated}}</td>
+          <td>
+            <a href="/blogs/{{blog._id}}">{{blog.title}}</a>
+            <a class="right delete-blog" data-id="{{blog._id}}" data-title="{{blog.title}}">&times;</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div id="confirmModal" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog" ng-model="confirmDelete">
+    <h2 id="modalTitle">Delete this blog?</h2>
+    <p class="lead">{{confirmDelete.blogTitle}}</p>
+    <button class="button confirm-modal">Delete</button>
+    <button class="button secondary close-modal">Cancel</button>
+    <a class="close-reveal-modal" aria-label="Close">&#215;</a>
+  </div>
 </div>
+

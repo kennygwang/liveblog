@@ -14,14 +14,14 @@ exports.createBlog = function(req, res) {
 		return res.status(400).json({ message: "Title field is empty.", data: {} });
 	}
 
-	var id = mongoose.types.ObjectId(req.params.id);
+	var id = mongoose.Types.ObjectId(req.params.id);
 	User.findById(id, function(err, user) {
 		if (err) {
 			res.status(500).json({ message: "Server error.", data: err });
 		} else if (!user) {
 			res.status(404).json({ message: "User not found.", data: {} });
 		} else {
-			var name = user.firstName + " " + user.lastName;
+			var name = user.pub.firstName + " " + user.pub.lastName;
 			var blog = new Blog({
 				authorId: id,
 				authorName: name,
@@ -83,6 +83,7 @@ exports.updateBlog = function(req, res) {
  * @param  {Object} res Response object
  */
 exports.deleteBlog = function(req, res) {
+	console.log(req.params, Blog, Blog.findAndModify)
 	var id = mongoose.Types.ObjectId(req.params.id);
 	Blog.findAndModify({ query: { _id: id }, remove: true }, function(err, blog) {
 		if (err) {

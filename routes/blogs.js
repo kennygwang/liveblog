@@ -43,6 +43,22 @@ exports.createBlog = function(req, res) {
 };
 
 /**
+ * Sends the blog given by the blog ID endpoint.
+ * @param  {Object} req Request object
+ * @param  {Object} res Response object
+ */
+exports.listBlog = function(req, res) {
+	var id = mongoose.Types.ObjectId(req.params.id);
+	Blog.findById(id, function(err, blog) {
+		if (err) {
+			res.status(500).json({ message: "Server error.", data: err });
+		} else {
+			res.status(200).json({ message: "OK.", data: blog })
+		}
+	});
+};
+
+/**
  * Sends all blogs through the response
  * @param  {Object} req Request object
  * @param  {Object} res Response object
@@ -122,6 +138,7 @@ exports.createPost = function(req, res) {
 			res.status(404).json({ message: "Blog not found.", data: err });
 		} else {
 			blog.posts.push(post); // update the blog object with the new post
+			blog.lastUpdated = Date.now();
 			blog.save(function(err) {
 				if (err) {
 					res.status(500).json({ message: "Server error.", data: err });

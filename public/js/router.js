@@ -8,7 +8,11 @@ liveblog.config(function($routeProvider){
     templateUrl: './partials/_bloglist.html',
     controller: 'BloglistController'
   })
-  .when('/blog', {
+  .when('/blogs/:blogId', {
+    templateUrl: './partials/_blog.html',
+    controller: 'BlogController'
+  })
+  .when('/blog_test', {
     templateUrl: './partials/_blog.html',
     controller: 'BlogController'
   })

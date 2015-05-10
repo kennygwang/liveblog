@@ -44,9 +44,10 @@ liveblog.controller('BloglistController', ['$scope', '$http', function($scope, $
             .success(function (data){
                 $('#confirmModal').foundation('reveal', 'close');
             })
-            .error(function (){
+            .error(function (data){
                 alert('Unable to delete the blog!');
                 $('#confirmModal').foundation('reveal', 'close');
+                alert(data.data);
             });
     });
     

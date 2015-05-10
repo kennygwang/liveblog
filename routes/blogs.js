@@ -85,7 +85,7 @@ exports.updateBlog = function(req, res) {
 exports.deleteBlog = function(req, res) {
 	console.log(req.params, Blog, Blog.findAndModify)
 	var id = mongoose.Types.ObjectId(req.params.id);
-	Blog.findAndModify({ query: { _id: id }, remove: true }, function(err, blog) {
+	Blog.remove({ _id: id }, function(err, blog) {
 		if (err) {
 			return res.status(500).json({ message: 'Server error.', data: err });
 		}

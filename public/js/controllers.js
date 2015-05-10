@@ -82,8 +82,9 @@ liveblog.controller('BloglistController', ['$scope', '$http', function($scope, $
     };
 }]);
 
-liveblog.controller('BlogController', ['$scope', '$http', '$routeParams', function($scope, $http, $routeParams) {
+liveblog.controller('BlogController', ['$scope', '$http', '$routeParams', '$sce', function($scope, $http, $routeParams, $sce) {
   $scope.blog = $scope.blog || {};
+  $scope.currentUserId = currentUserId;
 
   var blogId = $routeParams.blogId;
   $scope.blogId = blogId;
@@ -167,6 +168,10 @@ liveblog.controller('BlogController', ['$scope', '$http', '$routeParams', functi
             });
     
   };
+
+  $scope.trustSrc = function(src) {
+    return $sce.trustAsResourceUrl(src.replace('watch?v=', 'embed/'));
+  }
 
   // Bind the open event for the modal.
   $('form').on('click', '#blog-title', function (){

@@ -11,7 +11,24 @@
   </head>
 
   <body>
-  	<div>Hello ayyyyy lmao</div>
+  	<div class="contain-to-grid" id="nav-bar-wrapper">
+      <nav class="top-bar" data-topbar role="navigation">
+        <ul class="title-area">
+          <li class="name">
+            <h1><a href="./index.html">LiveBlog&#8482;</a></h1>
+          </li>
+        </ul>
+        <section class="top-bar-section">
+          <ul class="right">
+            <li><a ng-click="createNewBlog()">+ New Blog</a></li>
+            <li><a href="#/users/<%= currentUserId %>">My Blogs</a></li>
+          </ul>
+        </section>
+      </nav>
+    </div>
+
+    <div ng-view></div>
+
     <script src="./vendor/jquery/dist/jquery.min.js"></script>
     <script src="./vendor/angular/angular.min.js"></script>
     <script src="./vendor/angular-route/angular-route.min.js"></script>

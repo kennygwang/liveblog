@@ -1,5 +1,6 @@
-var liveblog = angular.module('liveblog', ['ngRoute']),
-    socket = io.connect('http://localhost:3000');
+var liveblog = angular.module('liveblog', ['ngRoute'])
+    , socket = io.connect('http://localhost:3000')
+    , isSocketBinded = false;
 
 liveblog.controller('NavController', ['$scope', '$http', '$location', function($scope, $http, $location) {
   $scope.createNewBlog = function () {
@@ -64,20 +65,35 @@ liveblog.controller('BloglistController', ['$scope', '$http', function($scope, $
 }]);
 
 liveblog.controller('BlogController', ['$scope', '$http', '$routeParams', function($scope, $http, $routeParams) {
-  // $scope.postList = []; // list of posts in the blog
-  $scope.blog = {};
+  $scope.blog = $scope.blog || {};
 
   var blogId = $routeParams.blogId;
+  $scope.blogId = blogId;
 
   // Fetch all posts onload.
-  $http.get('/api/blogs/'+blogId)
-        .success(function (blog){
-            $scope.blog = blog;
+  $http.get('/api/blog/'+blogId)
+        .success(function (res){
+            var blog = res.data;
+            blog.posts.map(function (post){
+                post.prettyTimeCreated = (new Date(post.timeCreated)).toLocaleTimeString();
+            });
+            blog.posts = blog.posts.sort(function (a, b){
+                return (new Date(b.timeCreated)) - (new Date(a.timeCreated));
+            });
+
+            $scope.blog = res.data;
         });
 
   socket.on(blogId, function(data){
-    $scope.blog.posts.unshift(data.post);
+    console.log('Got message!', data);
+
+    $scope.blog.posts.unshift(data.post).sort(function (a, b){
+                return (new Date(a.timeCreated)) - (new Date(b.timeCreated));
+            });
+    $scope.$digest();
   });
+  isSocketBinded = true;
+  console.log('Listening over socket channel: '+blogId);
 
   $scope.createPost = function () {
     // make API call to send postData to server,
@@ -92,11 +108,12 @@ liveblog.controller('BlogController', ['$scope', '$http', '$routeParams', functi
           url: $scope.url
         };
 
-    $http.post('/api/posts/' + blogId).success(function(data){
+    $http.post('/api/posts/' + blogId, postData).success(function(data){
       socket.emit('new post created', {
         blogId: blogId,
         post: data.data
       });
+      console.log('Emitting new post created signal.')
     });
   };
 

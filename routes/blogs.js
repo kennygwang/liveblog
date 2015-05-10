@@ -48,7 +48,7 @@ exports.createBlog = function(req, res) {
  * @param  {Object} res Response object
  */
 exports.listBlog = function(req, res) {
-	var id = mongoose.Types.ObjectId(req.params.id);
+	var id = mongoose.Types.ObjectId(req.params.blogId);
 	Blog.findById(id, function(err, blog) {
 		if (err) {
 			res.status(500).json({ message: "Server error.", data: err });
@@ -191,6 +191,7 @@ exports.deletePost = function(req, res) {
 			for (var i = 0; i < blog.posts.length; i++) { // find the index of the post and splice it
 				if (blog.posts[i]._id === postId) { 
 					blog.posts.splice(i);
+					blog.lastUpdated = Date.now();
 					blog.save(function(err) {
 						if (err) {
 							res.status(500).json({ message: "Server error.", data: err });

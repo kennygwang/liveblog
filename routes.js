@@ -109,7 +109,7 @@ module.exports = function(router, app, passport) {
 			.post(blogs.createBlog)
 			.delete(blogs.deleteBlog);
 
-	var blogIdRoute = router.route('/blogs/:blogId');
+	var blogIdRoute = router.route('/blog/:blogId');
 	blogIdRoute
 			.get(blogs.listBlog);
 

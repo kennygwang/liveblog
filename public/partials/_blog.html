@@ -1,4 +1,4 @@
-<div ng-controller="BlogController">
+<div class="blog-container">
 <form novalidate>
   <div class="row">
     <div class="small-6 columns">
@@ -8,7 +8,7 @@
     </div>
     <div class="small-6 columns">
       <label>Link to share:
-        <input id="share-link" type="text" value="https://www.liveblog.com/blogs/420" />
+        <input id="share-link" type="text" value="https://www.liveblog.com/#/blogs/{{blogId}}" />
       </label>
     </div>
   </div>
@@ -58,11 +58,11 @@
   </div>
 </form>
 
-<div class="row">
+<div class="row" ng-model="blog">
   <ul class="small-block-grid-2">
     <li ng-repeat="post in blog.posts">
       <article class="post post-with-text" ng-if="post.postType == 'text'">
-        <header class="post-header">{{post.timeCreated}}</header>
+        <header class="post-header">{{post.prettyTimeCreated}}</header>
         <div class="post-content">
           <blockquote class="post-text">
             {{post.text}}
@@ -74,9 +74,9 @@
       </article>
 
       <article class="post post-with-image" ng-if="post.postType == 'image'">
-        <header class="post-header">{{post.timeCreated}}</header>
+        <header class="post-header">{{post.prettyTimeCreated}}</header>
         <figure class="post-content">
-          <div class="post-image">
+          <div class="post-image" ng-show="post.url">
             <img src="{{post.url}}">
           </div>
           <figcaption class="post-caption">

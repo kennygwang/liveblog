@@ -39,13 +39,13 @@ Thumbs.db
 node_modules/
 bower_components/
 
-angular-route/
-angular/
+# angular-route/
+# angular/
 fastclick/
-foundation/
+# foundation/
 jquery-placeholder/
 jquery.cookie/
-jquery/
+# jquery/
 modernizr/
 
-public/css/
+# public/css/

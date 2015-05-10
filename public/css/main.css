@@ -1,0 +1,48 @@
+.flash-message {
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  width: 200px;
+  text-align: center;
+  background-color: #333333;
+  color: white;
+  padding: 4px;
+  margin: 0 auto; }
+
+#nav-bar-wrapper {
+  margin-bottom: 45px; }
+
+.blog-title h1 {
+  margin: 0;
+  margin-bottom: 50px;
+  text-align: center; }
+
+.post {
+  width: 100%;
+  background-color: #fff;
+  padding: 0 16px;
+  display: inline-block; }
+  .post .post-header {
+    line-height: 44px;
+    display: block; }
+  .post .post-footer img {
+    float: right;
+    cursor: pointer; }
+
+.post-with-image .post-image {
+  margin-bottom: 20px; }
+  .post-with-image .post-image img {
+    width: 100%;
+    height: 100%; }
+.post-with-image .post-content {
+  margin: 0; }
+
+.post-with-text .post-text {
+  padding: 0 16px;
+  height: 100%; }
+
+textarea {
+  min-height: 100px; }
+
+html, body {
+  background-color: #f2f2f2; }

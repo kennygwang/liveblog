@@ -1,5 +1,5 @@
 <div class="blog-container">
-<form novalidate>
+<form novalidate ng-show="currentUserId == blog.authorId">
   <div class="row">
     <div class="small-6 columns">
       <label>Blog Title:
@@ -61,31 +61,50 @@
 <div class="row" ng-model="blog">
   <ul class="small-block-grid-2">
     <li ng-repeat="post in blog.posts">
+      <!-- Text post -->
       <article class="post post-with-text" ng-if="post.postType == 'text'">
-        <header class="post-header">{{post.prettyTimeCreated}}</header>
+        <header class="post-header">{{ post.prettyTimeCreated }}</header>
         <div class="post-content">
           <blockquote class="post-text">
             {{post.text}}
           </blockquote>
         </div>
         <footer class="post-footer">
-          <img src="../img/sharing-options.png">
+          <img src="../img/sharing-options.png"/>
         </footer>
       </article>
-
+      <!-- Image post -->
       <article class="post post-with-image" ng-if="post.postType == 'image'">
-        <header class="post-header">{{post.prettyTimeCreated}}</header>
+        <header class="post-header">{{ post.prettyTimeCreated }}</header>
         <figure class="post-content">
           <div class="post-image" ng-show="post.url">
-            <img src="{{post.url}}">
+            <a href="{{ post.url }}" target="_blank">
+              <img ng-src="{{ post.url }}" max-width="420" max-height="315"/>
+            </a>
           </div>
           <figcaption class="post-caption">
-            <h3>{{post.caption}}</h3>
-            <p>{{post.text}}</p>
+            <h3>{{ post.caption }}</h3>
+            <p>{{ post.text }}</p>
           </figcaption>
         </figure>
         <footer class="post-footer">
-          <img src="../img/sharing-options.png">
+          <img src="../img/sharing-options.png"/>
+        </footer>
+      </article>
+      <!-- Video post -->
+      <article class="post post-with-video" ng-if="post.postType == 'video'">
+        <header class="post-header">{{ post.prettyTimeCreated }}</header>
+        <figure class="post-content">
+            <div class="post-video" ng-show="post.url">
+              <iframe width="420" height="315" frameborder="0" ng-src="{{ trustSrc(post.url) }}"></iframe>
+            </div>
+            <figcaption class="post-caption">
+                <h3>{{ post.caption }}</h3>
+                <p>{{ post.text }}</p>
+            </figcaption>
+        </figure>
+        <footer class="post-footer">
+          <img src="../img/sharing-options.png"/>
         </footer>
       </article>
     </li>

@@ -1,15 +1,15 @@
 liveblog.config(function($routeProvider){
   $routeProvider
   .when('/', {
-    templateUrl: './partials/list.html',
-    controller: 'imdbController'
+    templateUrl: './partials/_bloglist.html',
+    controller: 'BloglistController'
   })
-  .when('/gallery', {
-    templateUrl: './partials/gallery.html',
-    controller: 'imdbController'
+  .when('/users/:id', {
+    templateUrl: './partials/_bloglist.html',
+    controller: 'BloglistController'
   })
-  .when('/movie/:movie_rank', {
-    templateUrl: './partials/details.html',
-    controller: 'movieController'
+  .when('/blog', {
+    templateUrl: './partials/_blog.html',
+    controller: 'BlogController'
   })
 });

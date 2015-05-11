@@ -31,6 +31,10 @@ a {
   margin-bottom: 45px;
 }
 
+.top-bar-section ul a:hover {
+  border-bottom: 3px solid #E74C3C;
+}
+
 .bloglist-outer {
   .row {
     // max-width: 32.5rem;

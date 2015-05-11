@@ -58,13 +58,18 @@
   </div>
 </form>
 
+<div class="row" ng-show="currentUserId != blog.authorId">
+  <h1>{{ blog.title }}</h1>
+  <p>By {{ blog.authorName }}</p>
+</div>
+
 <div class="row" ng-model="blog">
   <ul class="small-block-grid-2">
     <li ng-repeat="post in blog.posts">
       <!-- Text post -->
       <article class="post post-with-text" ng-if="post.postType == 'text'">
         <header class="post-header">{{ post.prettyTimeCreated }}
-          <a class="right delete-post" ng-click="storePost(post._id)">&times;</a>
+          <a class="right delete-post" ng-click="storePost(post._id)" ng-show="currentUserId == blog.authorId">&times;</a>
         </header>
         <div class="post-content">
           <blockquote class="post-text">
@@ -78,7 +83,7 @@
       <!-- Image post -->
       <article class="post post-with-image" ng-if="post.postType == 'image'">
         <header class="post-header">{{ post.prettyTimeCreated }}
-          <a class="right delete-post" ng-click="storePost(post._id)">&times;</a>
+          <a class="right delete-post" ng-click="storePost(post._id)" ng-show="currentUserId == blog.authorId">&times;</a>
         </header>
         <figure class="post-content">
           <div class="post-image" ng-show="post.url">
@@ -98,7 +103,7 @@
       <!-- Video post -->
       <article class="post post-with-video" ng-if="post.postType == 'video'">
         <header class="post-header">{{ post.prettyTimeCreated }}
-          <a class="right delete-post" ng-click="storePost(post._id)">&times;</a>
+          <a class="right delete-post" ng-click="storePost(post._id)" ng-show="currentUserId == blog.authorId">&times;</a>
         </header>
         <figure class="post-content">
             <div class="post-video" ng-show="post.url">

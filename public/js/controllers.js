@@ -1,5 +1,5 @@
 var liveblog = angular.module('liveblog', ['ngRoute'])
-    , socket = io.connect('http://localhost:3000')
+    , socket = io.connect()
     , isSocketBinded = false;
 
 liveblog.controller('NavController', ['$scope', '$http', '$location', function($scope, $http, $location) {

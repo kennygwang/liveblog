@@ -43,7 +43,19 @@ liveblog.controller('BloglistController', ['$scope', '$http', function($scope, $
                 });
 
                 $scope.bloglist = data.data;
-                console.log($scope.bloglist)
+            }
+        });
+
+    // Fetch all existing blogs.
+    $http.get('/api/blogs')
+        .success(function(data) {
+             if (data.message.slice(0, 2) == 'OK'){
+                // Add a pretty date created field.
+                data.data.map(function (blog){
+                    blog.prettyDateCreated = new Date(blog.timeCreated).toLocaleDateString();
+                });
+
+                $scope.allbloglist = data.data;
             }
         });
 

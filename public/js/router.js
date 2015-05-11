@@ -1,7 +1,7 @@
 liveblog.config(function($routeProvider){
   $routeProvider
   .when('/', {
-    templateUrl: './partials/_bloglist.html',
+    templateUrl: './partials/_allbloglist.html',
     controller: 'BloglistController'
   })
   .when('/users/:id', {

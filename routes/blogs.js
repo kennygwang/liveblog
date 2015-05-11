@@ -199,7 +199,7 @@ exports.updatePost = function(req, res) {
  * @param  {Object} res Response object
  */
 exports.deletePost = function(req, res) {
-	var postId = mongoose.Types.ObjectId(req.params.postId);
+	var postId = req.params.postId;
 	var blogId = mongoose.Types.ObjectId(req.params.blogId);
 
 	Blog.findById(blogId, function(err, blog) {
@@ -208,23 +208,28 @@ exports.deletePost = function(req, res) {
 		} else if (!blog) {
 			res.status(404).json({ message: "Blog not found.", data: {} });
 		} else {
-			for (var i = 0; i < blog.posts.length; i++) { // find the index of the post and splice it
-				if (blog.posts[i]._id === postId) { 
-					blog.posts.splice(i);
-					blog.lastUpdated = Date.now();
-					blog.save(function(err) {
-						if (err) {
-							res.status(500).json({ message: "Server error.", data: err });
-						} else {
-							res.status(200).json({ message: "Post successfully deleted", data: {} });
-						}
-					});
+			// Remove the post.
+			var numPosts = blog.posts.length;
+			blog.posts = blog.posts.filter(function (p){
+				return p._id != postId;
+			});
 
-					return;
-				}
+			// Update and save the blog.  Otherwise, return an error if the size 
+			// of the blog did not change.
+			if (blog.posts.length !== numPosts){
+				blog.lastUpdated = Date.now();
+				blog.save(function(err) {
+					if (err) {
+						res.status(500).json({ message: "Server error.", data: err });
+					} else {
+						res.status(200).json({ message: "Post successfully deleted", data: {} });
+					}
+				});
+
+			} else {
+				// otherwise it means the post wasn't found
+				res.status(404).json({ message: "Post not found.", data: {} });
 			}
-			// otherwise it means the post wasn't found
-			res.status(404).json({ message: "Post not found.", data: {} });
 		}
 	});
 };

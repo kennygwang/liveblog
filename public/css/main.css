@@ -22,6 +22,9 @@ a {
 #nav-bar-wrapper {
   margin-bottom: 45px; }
 
+.top-bar-section ul a:hover {
+  border-bottom: 3px solid #E74C3C; }
+
 .blog-title h1 {
   margin: 0;
   margin-bottom: 50px;

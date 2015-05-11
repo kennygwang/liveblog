@@ -57,13 +57,14 @@
             <span class="error" ng-show="signupForm.lastName.$error.maxlength">
               Too long!</span>
           </div>
+
+          <div class="row">
+            <div class="small-12 column">
+              <input type="submit" class="lb-button" ng-class="stateClass" value="{{submitMessage}}" ng-disabled="disableSubmit" />
+            </div>
+          </div>
         </form>
 
-        <div class="row">
-          <div class="small-12 column">
-            <input type="submit" class="lb-button" ng-class="stateClass" value="{{submitMessage}}" ng-disabled="disableSubmit" />
-          </div>
-        </div>
 
         <div class="row">
           <div class="column">

@@ -17,8 +17,10 @@ module.exports = function(router, app, passport) {
 	 * Renders the home page. Checks if the user is logged in first.
 	 */
 	app.get('/', isLoggedIn, function(req, res) {
+		var username = req.user.pub.firstName + " " + req.user.pub.lastName;
 		res.render('index', {
-			currentUserId : req.user._id
+			currentUserId: req.user._id,
+			currentUsername: username
 		});
 	});
 

@@ -11,9 +11,7 @@ angular.module('signup', [])
         $scope.disableSubmit = false;
         console.log($scope)
 
-        $scope.register = function (){
-            console.log('aaaa');
-
+        $scope.register = function (e){
             $http.post('/api/users', $scope.user)
             // $http.post('/register', $scope.user)
                 .success(function (data){

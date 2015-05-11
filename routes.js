@@ -63,14 +63,6 @@ module.exports = function(router, app, passport) {
 	 * @param  {Object} res 	 Response object
 	 */
 	app.get('/logout', function(req, res) {
-		if (req.user) { // check if the user is logged in
-			Token.find({ uid: req.user._id }, function (err, tokens) {
-				for (var i = 0; i < tokens.length; i++) {
-					tokens[i].remove();
-				}
-			}); // remove the remember me token from the db
-		}
-
 		res.clearCookie('remember_me'); // delete the cookie
 		req.logout();
 		res.redirect('/login'); // redirect back to the login page

@@ -1,7 +1,10 @@
+@import 'variables';
+
 body {
 }
 
 a {
+  color: $lb-light-blue;
 }
 
 .flash-message {
@@ -66,6 +69,27 @@ textarea {
 }
 
 html, body {
-  background-color: #f2f2f2;
+  //background-color: #f2f2f2;
+  color: $lb-dark-blue !important;
+}
+
+.form-container {
+  width: 500px;
+  margin: 0 auto;
+}
+
+input {
+  -moz-border-radius: 3px !important;
+  -webkit-border-radius: 3px !important;
+  border-radius: 3px !important;
+}
+
+#nav-bar-wrapper * , #nav-bar-wrapper{
+  color: $lb-dark !important;
+  background-color: white;
+}
+
+.form-container *:not(a):not(input), .form-container {
+  color: $lb-dark;
 }
 

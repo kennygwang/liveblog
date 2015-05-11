@@ -19,61 +19,55 @@
         </ul>
       </nav>
     </div>
-    <form id="signup-form" name="signupForm" ng-submit="signupForm.$valid && register()" novalidate>
+    <div class="form-container">
+      <form id="signup-form" name="signupForm" ng-submit="signupForm.$valid && register()" novalidate>
+          <div class="row">
+            <div class="column">
+              <h1>Register</h1>
+            </div>
+          </div>
+          <div class="row">
+            <div class="small-12 column">
+              <input type="text" name="firstName" ng-model="user.firstName" placeholder="First name" ng-minLength="2" ng-maxLength="32"/>
+            </div>
+          </div>
+          <div class="row">
+            <div class="small-12 column">
+              <input type="text" name="lastName" ng-model="user.lastName" placeholder="Last name" ng-minLength="2" ng-maxLength="32"/>
+            </div>
+          </div>
+          <div class="row">
+            <div class="small-12 column">
+              <input type="text" name="email" ng-model="user.email" placeholder="Email" ng-minLength="6"/>
+            </div>
+          </div>
+          <div class="row">
+            <div class="small-12 column">
+              <input type="password" name="password" ng-model="user.password" placeholder="Password" ng-minLength="6" ng-maxLength="32"/>
+            </div>
+          </div>
+
+          <div role="alert">
+            <span class="error" ng-show="signupForm.firstName.$error.required">
+             Required!</span>
+          </div>
+          <div role="alert">
+            <span class="error" ng-show="signupForm.lastName.$error.minlength">
+              Too short!</span>
+            <span class="error" ng-show="signupForm.lastName.$error.maxlength">
+              Too long!</span>
+          </div>
+
+          <div class="row">
+            <div class="small-12 column">
+                <input type="submit" class="button right" ng-class="stateClass" value="{{submitMessage}}" ng-disabled="disableSubmit" />
+            </div>
+          </div>
+        </form>
         <div class="row">
           <div class="column">
-            <h1>Register</h1>
+            <p>Already have an account? <a href="/login">Log in!</a></p>
           </div>
-        </div>
-        <div class="row">
-          <div class="small-12 column">
-            <label>First name:
-              <input type="text" name="firstName" ng-model="user.firstName" placeholder="Enter your first name" ng-minLength="2" ng-maxLength="32"/>
-            </label>
-          </div>
-        </div>
-        <div class="row">
-          <div class="small-12 column">
-            <label>Last name:
-              <input type="text" name="lastName" ng-model="user.lastName" placeholder="Enter your last name" ng-minLength="2" ng-maxLength="32"/>
-            </label>
-          </div>
-        </div>
-        <div class="row">
-          <div class="small-12 column">
-            <label>Email:
-              <input type="text" name="email" ng-model="user.email" placeholder="Enter your email address" ng-minLength="6"/>
-            </label>
-          </div>
-        </div>
-        <div class="row">
-          <div class="small-12 column">
-            <label>Password:
-              <input type="password" name="password" ng-model="user.password" placeholder="Enter your password" ng-minLength="6" ng-maxLength="32"/>
-            </label>
-          </div>
-        </div>
-
-        <div role="alert">
-          <span class="error" ng-show="signupForm.firstName.$error.required">
-           Required!</span>
-        </div>
-        <div role="alert">
-          <span class="error" ng-show="signupForm.lastName.$error.minlength">
-            Too short!</span>
-          <span class="error" ng-show="signupForm.lastName.$error.maxlength">
-            Too long!</span>
-        </div>
-
-        <div class="row">
-          <div class="small-12 column">
-              <input type="submit" class="button right" ng-class="stateClass" value="{{submitMessage}}" ng-disabled="disableSubmit" />
-          </div>
-        </div>
-      </form>
-      <div class="row">
-        <div class="column">
-          <p>Already have an account? <a href="/login">Log in!</a></p>
         </div>
       </div>
 

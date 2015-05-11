@@ -1,3 +1,6 @@
+a {
+  color: #3498DB; }
+
 .flash-message {
   position: fixed;
   z-index: 1;
@@ -45,4 +48,20 @@ textarea {
   min-height: 100px; }
 
 html, body {
-  background-color: #f2f2f2; }
+  color: #2980B9 !important; }
+
+.form-container {
+  width: 500px;
+  margin: 0 auto; }
+
+input {
+  -moz-border-radius: 3px !important;
+  -webkit-border-radius: 3px !important;
+  border-radius: 3px !important; }
+
+#nav-bar-wrapper *, #nav-bar-wrapper {
+  color: #2C3E50 !important;
+  background-color: white; }
+
+.form-container *:not(a):not(input), .form-container {
+  color: #2C3E50; }

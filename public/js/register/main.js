@@ -12,7 +12,6 @@ angular.module('signup', [])
         console.log($scope)
 
         $scope.register = function (e){
-            // e.preventDefault();
 
             $http.post('/api/users', $scope.user)
             // $http.post('/register', $scope.user)

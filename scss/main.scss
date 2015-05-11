@@ -126,6 +126,7 @@ input {
 }
 
 .menu-ring {
+  top: 10%;
   opacity: 0.3;
   margin: 0 auto;
   position: relative;
@@ -142,10 +143,10 @@ input {
   -moz-animation-duration: 30s;
 }
 .menu-ring > :nth-child(odd) {
-  background-color: #515151;
+  background-color: lightgray;
 }
 .menu-ring > :nth-child(even) {
-  background-color: $lb-dark-blue;
+  background-color: $lb-red;
 }
 @-webkit-keyframes spin {
   0%    { -webkit-transform: rotateY(360deg); }

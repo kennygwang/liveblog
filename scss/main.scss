@@ -15,6 +15,14 @@ a {
   color: $lb-light-blue;
 }
 
+a.delete-post {
+  color: $lb-red;
+}
+
+a.delete-post:hover {
+  color: darken($lb-red, 10%);
+}
+
 .flash-message {
   position: fixed;
   z-index: 1;

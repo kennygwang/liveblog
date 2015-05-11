@@ -8,6 +8,12 @@ body {
 a {
   color: #3498DB; }
 
+a.delete-post {
+  color: #E74C3C; }
+
+a.delete-post:hover {
+  color: #d62c1a; }
+
 .flash-message {
   position: fixed;
   z-index: 1;

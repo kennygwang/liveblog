@@ -122,6 +122,14 @@ liveblog.controller('BlogController', ['$scope', '$http', '$routeParams', '$sce'
     $scope.$digest();
   });
 
+  socket.on('delete post', function (data){
+    // Remove the post from the page and close the modal.
+    $scope.blog.posts = $scope.blog.posts.filter(function(blogpost){
+        return blogpost._id != data.postId;
+    });
+    $scope.$digest();
+  });
+
 
   isSocketBinded = true;
   console.log('Listening over socket channel: '+blogId);
@@ -172,10 +180,9 @@ liveblog.controller('BlogController', ['$scope', '$http', '$routeParams', '$sce'
     var postId = $scope.postToDelete;
     $http.delete('/api/posts/'+blogId+'/'+postId)
             .success(function (res){
-                console.log(res)
-                // Remove the post from the page and close the modal.
-                $scope.blog.posts = $scope.blog.posts.filter(function(blogpost){
-                    return blogpost._id != postId;
+                socket.emit('delete post', {
+                    blogId: blogId,
+                    postId: postId
                 });
 
                 $('#deletePostModal').foundation('reveal', 'close');

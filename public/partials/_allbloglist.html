@@ -12,7 +12,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr ng-repeat="blog in bloglist.slice().reverse() | limitTo: 3">
+        <tr ng-repeat="blog in bloglist.slice().reverse() | limitTo: 3 | orderBy: 'lastUpdated':true">
           <td>{{blog.prettyDateCreated}}</td>
           <td>
             <a href="/#/blogs/{{blog._id}}">{{blog.title}}</a>
@@ -44,7 +44,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr ng-repeat="blog in allbloglist.slice().reverse() | orderBy: 'lastUpdated':true">
+        <tr ng-repeat="blog in allbloglist | orderBy: 'lastUpdated':true">
           <td>{{blog.prettyDateCreated}}</td>
           <td>
             <a href="/#/blogs/{{blog._id}}">{{blog.title}}</a>

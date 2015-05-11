@@ -12,7 +12,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr ng-repeat="blog in bloglist">
+        <tr ng-repeat="blog in bloglist | orderBy: 'lastUpdated':true">
           <td>{{blog.prettyDateCreated}}</td>
           <td>
             <a href="/#/blogs/{{blog._id}}">{{blog.title}}</a>

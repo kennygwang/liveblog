@@ -146,6 +146,12 @@ liveblog.controller('BlogController', ['$scope', '$http', '$routeParams', '$sce'
   isSocketBinded = true;
   console.log('Listening over socket channel: '+blogId);
 
+  $(document).ready(function(){
+    $('#share-link').click(function(){
+      $(this).select();
+    });
+  });
+
   $scope.createPost = function () {
     // make API call to send postData to server,
     // which sends the post to audience 
@@ -164,7 +170,13 @@ liveblog.controller('BlogController', ['$scope', '$http', '$routeParams', '$sce'
         blogId: blogId,
         post: data.data
       });
-      console.log('Emitting new post created signal.')
+      console.log('Emitting new post created signal.');
+
+      // Clear input fields
+      $('.clear-after').val('');
+      $scope.content = '';
+      $scope.caption = '';
+      $scope.url = '';
     });
   };
 

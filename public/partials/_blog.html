@@ -8,7 +8,7 @@
     </div>
     <div class="small-6 columns">
       <label>Link to share:
-        <input id="share-link" type="text" value="https://www.liveblog.com/#/blogs/{{blogId}}" />
+        <input id="share-link" type="text" value="http://projectliveblog.herokuapp.com/#/blogs/{{blogId}}" readonly/>
       </label>
     </div>
   </div>
@@ -30,7 +30,7 @@
       <label>
         <span ng-show="postType == 'image'">Image URL:</span>
         <span ng-show="postType == 'video'">Video URL:</span>
-        <input ng-model="url" type="text" placeholder="Paste in a URL" />
+        <input ng-model="url" class="clear-after" type="text" placeholder="Paste in a URL" />
       </label>
     </div>
   </div>
@@ -38,8 +38,8 @@
   <div class="row" ng-show="postType == 'image' || postType == 'video'">
     <div class="small-12 column">
       <label>Caption:
-        <input ng-model="caption" type="text" ng-show="postType == 'image'" placeholder="Enter a caption for the image" />
-        <input ng-model="caption" type="text" ng-show="postType == 'video'" placeholder="Enter a caption for the video" />
+        <input ng-model="caption" class="clear-after" type="text" ng-show="postType == 'image'" placeholder="Enter a caption for the image" />
+        <input ng-model="caption" class="clear-after" type="text" ng-show="postType == 'video'" placeholder="Enter a caption for the video" />
       </label>
     </div>
   </div>
@@ -47,7 +47,7 @@
   <div class="row">
     <div class="small-12 column">
       <label>Post Content:
-        <textarea ng-model="content" placeholder="Say something about the post..."></textarea>
+        <textarea ng-model="content" class="clear-after" placeholder="Say something about the post..."></textarea>
       </label>
     </div>
   </div>

@@ -1,3 +1,13 @@
+html, body {
+  color: #2980B9 !important; }
+
+body {
+  margin-bottom: 120px;
+  -webkit-perspective: 800px; }
+
+a {
+  color: #3498DB; }
+
 .flash-message {
   position: fixed;
   z-index: 1;
@@ -12,16 +22,24 @@
 #nav-bar-wrapper {
   margin-bottom: 45px; }
 
+.bloglist-outer {
+  max-width: 32.5rem; }
+
 .blog-title h1 {
   margin: 0;
   margin-bottom: 50px;
   text-align: center; }
 
+#blog-title, #share-link {
+  background-color: #FFF; }
+
 .post {
   width: 100%;
-  background-color: #fff;
+  background-color: #FFF;
   padding: 0 16px;
-  display: inline-block; }
+  display: inline-block;
+  border-top: 3px solid #E74C3C;
+  box-shadow: 0px 5px 20px -3px lightgray; }
   .post .post-header {
     line-height: 44px;
     display: block; }
@@ -52,5 +70,82 @@
 textarea {
   min-height: 100px; }
 
-html, body {
-  background-color: #f2f2f2; }
+.login-form .row {
+  max-width: 32.5rem; }
+
+.form-container {
+  width: 500px;
+  margin: 0 auto; }
+
+input {
+  -moz-border-radius: 3px !important;
+  -webkit-border-radius: 3px !important;
+  border-radius: 3px !important; }
+
+#nav-bar-wrapper *, #nav-bar-wrapper {
+  color: #2C3E50 !important;
+  background-color: white; }
+
+.form-container *:not(a):not(input), .form-container {
+  color: #2C3E50; }
+
+.menu-ring {
+  opacity: 0.3;
+  margin: 0 auto;
+  position: relative;
+  width: 600px;
+  -webkit-transform-style: preserve-3d;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-timing-function: linear;
+  -webkit-animation-name: spin;
+  -webkit-animation-duration: 30s;
+  -moz-transform-style: preserve-3d;
+  -moz-animation-iteration-count: infinite;
+  -moz-animation-timing-function: linear;
+  -moz-animation-name: spin;
+  -moz-animation-duration: 30s; }
+
+.menu-ring > :nth-child(odd) {
+  background-color: #515151; }
+
+.menu-ring > :nth-child(even) {
+  background-color: #2980B9; }
+
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotateY(360deg); }
+
+  50% {
+    -webkit-transform: rotateY(180deg); }
+
+  100% {
+    -webkit-transform: rotateY(0deg); } }
+
+@-moz-keyframes spin {
+  0% {
+    -moz-transform: rotateY(360deg); }
+
+  50% {
+    -moz-transform: rotateY(180deg); }
+
+  100% {
+    -moz-transform: rotateY(0deg); } }
+
+.ringPiece {
+  position: absolute;
+  left: 275px;
+  width: 50px;
+  height: 50px;
+  text-align: center;
+  opacity: 0.7; }
+
+.lb-button {
+  width: 100%;
+  padding: .5rem;
+  margin-bottom: 1.25rem;
+  background-color: #3498DB;
+  color: white;
+  border: none; }
+
+.lb-button:hover {
+  background-color: #2980B9; }

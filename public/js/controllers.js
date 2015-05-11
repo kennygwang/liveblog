@@ -43,7 +43,19 @@ liveblog.controller('BloglistController', ['$scope', '$http', function($scope, $
                 });
 
                 $scope.bloglist = data.data;
-                console.log($scope.bloglist)
+            }
+        });
+
+    // Fetch all existing blogs.
+    $http.get('/api/blogs')
+        .success(function(data) {
+             if (data.message.slice(0, 2) == 'OK'){
+                // Add a pretty date created field.
+                data.data.map(function (blog){
+                    blog.prettyDateCreated = new Date(blog.timeCreated).toLocaleDateString();
+                });
+
+                $scope.allbloglist = data.data;
             }
         });
 
@@ -122,14 +134,28 @@ liveblog.controller('BlogController', ['$scope', '$http', '$routeParams', '$sce'
     $scope.$digest();
   });
 
+  socket.on('delete post', function (data){
+    // Remove the post from the page and close the modal.
+    $scope.blog.posts = $scope.blog.posts.filter(function(blogpost){
+        return blogpost._id != data.postId;
+    });
+    $scope.$digest();
+  });
+
 
   isSocketBinded = true;
   console.log('Listening over socket channel: '+blogId);
 
+  $(document).ready(function(){
+    $('#share-link').click(function(){
+      $(this).select();
+    });
+  });
+
   $scope.createPost = function () {
     // make API call to send postData to server,
-      // which sends the post to audience 
-      // and responds with a post JSON object
+    // which sends the post to audience 
+    // and responds with a post JSON object
     // add post to $scope.blog.posts
     // ng-repeat handles the rendering
     var postData = {
@@ -144,17 +170,10 @@ liveblog.controller('BlogController', ['$scope', '$http', '$routeParams', '$sce'
         blogId: blogId,
         post: data.data
       });
-      console.log('Emitting new post created signal.')
-    });
-  };
+      console.log('Emitting new post created signal.');
 
-  $scope.deletePost = function (postId) {
-    // find the post in blog.posts array and remove it
-    // ng-repeat handles the rendering
-    $http.delete('/api/posts/' + postId).success(function(){
-      $scope.blog.posts = $scope.blog.posts.filter(function(blogpost){
-        return blogpost._id != postId;
-      });
+      // Clear input fields
+      $('.clear-after').val('');
     });
   };
 
@@ -173,13 +192,40 @@ liveblog.controller('BlogController', ['$scope', '$http', '$routeParams', '$sce'
     return $sce.trustAsResourceUrl(src.replace('watch?v=', 'embed/'));
   }
 
+  $scope.storePost = function(postId) {
+    $scope.postToDelete = postId;
+    $('#deletePostModal').foundation('reveal', 'open');
+  };
+
+  $scope.deletePost = function () {
+    var postId = $scope.postToDelete;
+    $http.delete('/api/posts/'+blogId+'/'+postId)
+            .success(function (res){
+                socket.emit('delete post', {
+                    blogId: blogId,
+                    postId: postId
+                });
+
+                $('#deletePostModal').foundation('reveal', 'close');
+            })
+            .error(function (res) {
+                console.log(res)
+            });
+  }
+
   // Bind the open event for the modal.
-  $('form').on('click', '#blog-title', function (){
-      $('#editBlogTitleModal').foundation('reveal', 'open');
+  $('form').on('click', '#blog-title', function (){ 
+    $('#editBlogTitleModal').foundation('reveal', 'open');
+  });
+
+  // Bind the open event for the modal.
+  $('.post').on('click', '.delete-post', function () {
+    $('#deletePostModal').foundation('reveal', 'open');
   });
 
   // Bind the close event for the modal.
   $('.close-reveal-modal, .close-modal').click(function (){
-      $('#editBlogTitleModal').foundation('reveal', 'close');
+    $('#editBlogTitleModal').foundation('reveal', 'close');
+    $('#deletePostModal').foundation('reveal', 'close');
   });
 }]);

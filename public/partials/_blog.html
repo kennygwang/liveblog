@@ -8,7 +8,7 @@
     </div>
     <div class="small-6 columns">
       <label>Link to share:
-        <input id="share-link" type="text" value="https://www.liveblog.com/#/blogs/{{blogId}}" />
+        <input id="share-link" type="text" value="http://projectliveblog.herokuapp.com/#/blogs/{{blogId}}" readonly/>
       </label>
     </div>
   </div>
@@ -30,7 +30,7 @@
       <label>
         <span ng-show="postType == 'image'">Image URL:</span>
         <span ng-show="postType == 'video'">Video URL:</span>
-        <input ng-model="url" type="text" placeholder="Paste in a URL" />
+        <input ng-model="url" class="clear-after" type="text" placeholder="Paste in a URL" />
       </label>
     </div>
   </div>
@@ -38,8 +38,8 @@
   <div class="row" ng-show="postType == 'image' || postType == 'video'">
     <div class="small-12 column">
       <label>Caption:
-        <input ng-model="caption" type="text" ng-show="postType == 'image'" placeholder="Enter a caption for the image" />
-        <input ng-model="caption" type="text" ng-show="postType == 'video'" placeholder="Enter a caption for the video" />
+        <input ng-model="caption" class="clear-after" type="text" ng-show="postType == 'image'" placeholder="Enter a caption for the image" />
+        <input ng-model="caption" class="clear-after" type="text" ng-show="postType == 'video'" placeholder="Enter a caption for the video" />
       </label>
     </div>
   </div>
@@ -47,7 +47,7 @@
   <div class="row">
     <div class="small-12 column">
       <label>Post Content:
-        <textarea ng-model="content" placeholder="Say something about the post..."></textarea>
+        <textarea ng-model="content" class="clear-after" placeholder="Say something about the post..."></textarea>
       </label>
     </div>
   </div>
@@ -63,7 +63,9 @@
     <li ng-repeat="post in blog.posts">
       <!-- Text post -->
       <article class="post post-with-text" ng-if="post.postType == 'text'">
-        <header class="post-header">{{ post.prettyTimeCreated }}</header>
+        <header class="post-header">{{ post.prettyTimeCreated }}
+          <a class="right delete-post" ng-click="storePost(post._id)">&times;</a>
+        </header>
         <div class="post-content">
           <blockquote class="post-text">
             {{post.text}}
@@ -75,7 +77,9 @@
       </article>
       <!-- Image post -->
       <article class="post post-with-image" ng-if="post.postType == 'image'">
-        <header class="post-header">{{ post.prettyTimeCreated }}</header>
+        <header class="post-header">{{ post.prettyTimeCreated }}
+          <a class="right delete-post" ng-click="storePost(post._id)">&times;</a>
+        </header>
         <figure class="post-content">
           <div class="post-image" ng-show="post.url">
             <a href="{{ post.url }}" target="_blank">
@@ -93,10 +97,12 @@
       </article>
       <!-- Video post -->
       <article class="post post-with-video" ng-if="post.postType == 'video'">
-        <header class="post-header">{{ post.prettyTimeCreated }}</header>
+        <header class="post-header">{{ post.prettyTimeCreated }}
+          <a class="right delete-post" ng-click="storePost(post._id)">&times;</a>
+        </header>
         <figure class="post-content">
             <div class="post-video" ng-show="post.url">
-              <iframe width="420" height="315" frameborder="0" ng-src="{{ trustSrc(post.url) }}"></iframe>
+              <iframe frameborder="0" ng-src="{{ trustSrc(post.url) }}"></iframe>
             </div>
             <figcaption class="post-caption">
                 <h3>{{ post.caption }}</h3>
@@ -118,4 +124,12 @@
   <button class="button confirm-modal right" ng-click="updateTitle()" style="margin-right: 15px;">Save Changes</button>
   <a class="close-reveal-modal" aria-label="Close">&#215;</a>
 </div>
+
+<div id="deletePostModal" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
+  <h2>Delete This Post?</h2>
+  <button class="button secondary close-modal right">Cancel</button>
+  <button class="button confirm-modal right" ng-click="deletePost()" style="margin-right: 15px;">Confirm</button>
+  <a class="close-reveal-modal" aria-label="Close">&#215;</a>
+</div>
+
 </div>

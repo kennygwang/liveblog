@@ -29,9 +29,13 @@ a {
   text-align: center;
 }
 
+#blog-title, #share-link {
+  background-color: #FFF;
+}
+
 .post {
   width: 100%;
-  background-color: #fff;
+  background-color: #FFF;
   padding: 0 16px;
   display: inline-block;
 
@@ -52,6 +56,19 @@ a {
     img {
       width: 100%;
       height: 100%;
+    }
+  }
+  .post-content {
+    margin: 0;
+  }
+}
+
+.post-with-video {
+  .post-video {
+    margin-bottom: 20px;
+    iframe {
+      width: 100%;
+      height: 315px;
     }
   }
   .post-content {

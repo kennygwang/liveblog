@@ -1,12 +1,18 @@
+@import 'variables';
+
 html, body {
-  background-color: #f2f2f2;
+  // background-color: #f2f2f2;
+  //background-color: #f2f2f2;
+  color: $lb-dark-blue !important;
 }
 
 body {
+  margin-bottom: 120px;
   -webkit-perspective: 800px;
 }
 
 a {
+  color: $lb-light-blue;
 }
 
 .flash-message {
@@ -25,15 +31,23 @@ a {
   margin-bottom: 45px;
 }
 
+.bloglist-outer {
+  max-width: 32.5rem;
+}
+
 .blog-title h1 {
   margin: 0;
   margin-bottom: 50px;
   text-align: center;
 }
 
+#blog-title, #share-link {
+  background-color: #FFF;
+}
+
 .post {
   width: 100%;
-  background-color: #fff;
+  background-color: #FFF;
   padding: 0 16px;
   display: inline-block;
 
@@ -89,9 +103,27 @@ textarea {
   }
 }
 
+.form-container {
+  width: 500px;
+  margin: 0 auto;
+}
+
+input {
+  -moz-border-radius: 3px !important;
+  -webkit-border-radius: 3px !important;
+  border-radius: 3px !important;
+}
+
+#nav-bar-wrapper * , #nav-bar-wrapper{
+  color: $lb-dark !important;
+  background-color: white;
+}
+
+.form-container *:not(a):not(input), .form-container {
+  color: $lb-dark;
+}
+
 .menu-ring {
-  // bottom: 250px;
-  /*left: 25%;*/
   opacity: 0.3;
   margin: 0 auto;
   position: relative;
@@ -111,7 +143,7 @@ textarea {
   background-color: #515151;
 }
 .menu-ring > :nth-child(even) {
-  background-color: #007ACC;
+  background-color: $lb-dark-blue;
 }
 @-webkit-keyframes spin {
   0%    { -webkit-transform: rotateY(360deg); }

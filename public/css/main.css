@@ -1,8 +1,12 @@
 html, body {
-  background-color: #f2f2f2; }
+  color: #2980B9 !important; }
 
 body {
+  margin-bottom: 120px;
   -webkit-perspective: 800px; }
+
+a {
+  color: #3498DB; }
 
 .flash-message {
   position: fixed;
@@ -18,14 +22,20 @@ body {
 #nav-bar-wrapper {
   margin-bottom: 45px; }
 
+.bloglist-outer {
+  max-width: 32.5rem; }
+
 .blog-title h1 {
   margin: 0;
   margin-bottom: 50px;
   text-align: center; }
 
+#blog-title, #share-link {
+  background-color: #FFF; }
+
 .post {
   width: 100%;
-  background-color: #fff;
+  background-color: #FFF;
   padding: 0 16px;
   display: inline-block; }
   .post .post-header {
@@ -61,8 +71,23 @@ textarea {
 .login-form .row {
   max-width: 32.5rem; }
 
+.form-container {
+  width: 500px;
+  margin: 0 auto; }
+
+input {
+  -moz-border-radius: 3px !important;
+  -webkit-border-radius: 3px !important;
+  border-radius: 3px !important; }
+
+#nav-bar-wrapper *, #nav-bar-wrapper {
+  color: #2C3E50 !important;
+  background-color: white; }
+
+.form-container *:not(a):not(input), .form-container {
+  color: #2C3E50; }
+
 .menu-ring {
-  /*left: 25%;*/
   opacity: 0.3;
   margin: 0 auto;
   position: relative;
@@ -82,7 +107,7 @@ textarea {
   background-color: #515151; }
 
 .menu-ring > :nth-child(even) {
-  background-color: #007ACC; }
+  background-color: #2980B9; }
 
 @-webkit-keyframes spin {
   0% {

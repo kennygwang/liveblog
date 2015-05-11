@@ -4,7 +4,6 @@ function startFancyRing(){
     var N = 12;
     var pieces = new Array(N);
     var width = parseInt(r.width(), 10)/2;
-    console.log(width, r)
 
     r.html("");
     for (var i=0; i<N; i++){

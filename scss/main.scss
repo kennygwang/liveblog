@@ -1,4 +1,9 @@
+html, body {
+  background-color: #f2f2f2;
+}
+
 body {
+  -webkit-perspective: 800px;
 }
 
 a {
@@ -78,7 +83,51 @@ textarea {
   min-height: 100px;
 }
 
-html, body {
-  background-color: #f2f2f2;
+.login-form {
+  .row {
+    max-width: 32.5rem;
+  }
 }
 
+.menu-ring {
+  // bottom: 250px;
+  /*left: 25%;*/
+  opacity: 0.3;
+  margin: 0 auto;
+  position: relative;
+  width: 600px;
+  -webkit-transform-style: preserve-3d;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-timing-function: linear;
+  -webkit-animation-name: spin;
+  -webkit-animation-duration: 30s;
+  -moz-transform-style: preserve-3d;
+  -moz-animation-iteration-count: infinite;
+  -moz-animation-timing-function: linear;
+  -moz-animation-name: spin;
+  -moz-animation-duration: 30s;
+}
+.menu-ring > :nth-child(odd) {
+  background-color: #515151;
+}
+.menu-ring > :nth-child(even) {
+  background-color: #007ACC;
+}
+@-webkit-keyframes spin {
+  0%    { -webkit-transform: rotateY(360deg); }
+  50%   { -webkit-transform: rotateY(180deg); }
+  100%  { -webkit-transform: rotateY(0deg); }
+}
+@-moz-keyframes spin {
+  0%    { -moz-transform: rotateY(360deg); }
+  50%   { -moz-transform: rotateY(180deg); }
+  100%  { -moz-transform: rotateY(0deg); }
+}
+.ringPiece{
+  position: absolute;
+  left: 275px;
+  width: 50px;
+  height: 50px;
+  text-align: center;
+  opacity: 0.7;
+}

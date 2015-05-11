@@ -19,7 +19,7 @@
         </ul>
       </nav>
     </div>
-    <form id="signup-form" name="signupForm" ng-submit="signupForm.$valid && register()" novalidate>
+    <form class="login-form" id="signup-form" name="signupForm" ng-submit="signupForm.$valid && register()" novalidate>
         <div class="row">
           <div class="column">
             <h1>Register</h1>
@@ -66,16 +66,18 @@
         </div>
 
         <div class="row">
+          <div class="column">
+            <p>Already have an account? <a href="/login">Log in!</a></p>
+          </div>
+        </div>
+
+        <div class="row">
           <div class="small-12 column">
               <input type="submit" class="button right" ng-class="stateClass" value="{{submitMessage}}" ng-disabled="disableSubmit" />
           </div>
         </div>
       </form>
-      <div class="row">
-        <div class="column">
-          <p>Already have an account? <a href="/login">Log in!</a></p>
-        </div>
-      </div>
+      
 
     <script src="./vendor/jquery/dist/jquery.min.js"></script>
     <script src="./vendor/angular/angular.min.js"></script>

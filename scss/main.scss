@@ -32,7 +32,9 @@ a {
 }
 
 .bloglist-outer {
-  max-width: 32.5rem;
+  .row {
+    // max-width: 32.5rem;
+  }
 }
 
 .blog-title h1 {

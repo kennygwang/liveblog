@@ -20,5 +20,10 @@ module.exports = function(io){
             io.to(data.blogId).emit('send post', { post: data.post });
             //console.log('-----\nBroadcasting post over socket channel: '+data.blogId + '\n--------');
         });
+
+        // when a delete post message is emitted, emit the post and blog ID to everyone
+        socket.on('delete post', function(data) {
+            io.to(data.blogId).emit('delete post', { postId: data.postId });
+        });
     });
 };

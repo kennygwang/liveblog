@@ -122,14 +122,22 @@ liveblog.controller('BlogController', ['$scope', '$http', '$routeParams', '$sce'
     $scope.$digest();
   });
 
+  socket.on('delete post', function (data){
+    // Remove the post from the page and close the modal.
+    $scope.blog.posts = $scope.blog.posts.filter(function(blogpost){
+        return blogpost._id != data.postId;
+    });
+    $scope.$digest();
+  });
+
 
   isSocketBinded = true;
   console.log('Listening over socket channel: '+blogId);
 
   $scope.createPost = function () {
     // make API call to send postData to server,
-      // which sends the post to audience 
-      // and responds with a post JSON object
+    // which sends the post to audience 
+    // and responds with a post JSON object
     // add post to $scope.blog.posts
     // ng-repeat handles the rendering
     var postData = {
@@ -148,16 +156,6 @@ liveblog.controller('BlogController', ['$scope', '$http', '$routeParams', '$sce'
     });
   };
 
-  $scope.deletePost = function (postId) {
-    // find the post in blog.posts array and remove it
-    // ng-repeat handles the rendering
-    $http.delete('/api/posts/' + postId).success(function(){
-      $scope.blog.posts = $scope.blog.posts.filter(function(blogpost){
-        return blogpost._id != postId;
-      });
-    });
-  };
-
   $scope.updateTitle = function () {
     // make the API call to change the blog title to whatever $scope.title is
     // update the DOM title field on success
@@ -173,13 +171,40 @@ liveblog.controller('BlogController', ['$scope', '$http', '$routeParams', '$sce'
     return $sce.trustAsResourceUrl(src.replace('watch?v=', 'embed/'));
   }
 
+  $scope.storePost = function(postId) {
+    $scope.postToDelete = postId;
+    $('#deletePostModal').foundation('reveal', 'open');
+  };
+
+  $scope.deletePost = function () {
+    var postId = $scope.postToDelete;
+    $http.delete('/api/posts/'+blogId+'/'+postId)
+            .success(function (res){
+                socket.emit('delete post', {
+                    blogId: blogId,
+                    postId: postId
+                });
+
+                $('#deletePostModal').foundation('reveal', 'close');
+            })
+            .error(function (res) {
+                console.log(res)
+            });
+  }
+
   // Bind the open event for the modal.
-  $('form').on('click', '#blog-title', function (){
-      $('#editBlogTitleModal').foundation('reveal', 'open');
+  $('form').on('click', '#blog-title', function (){ 
+    $('#editBlogTitleModal').foundation('reveal', 'open');
+  });
+
+  // Bind the open event for the modal.
+  $('.post').on('click', '.delete-post', function () {
+    $('#deletePostModal').foundation('reveal', 'open');
   });
 
   // Bind the close event for the modal.
   $('.close-reveal-modal, .close-modal').click(function (){
-      $('#editBlogTitleModal').foundation('reveal', 'close');
+    $('#editBlogTitleModal').foundation('reveal', 'close');
+    $('#deletePostModal').foundation('reveal', 'close');
   });
 }]);

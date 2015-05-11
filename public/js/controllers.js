@@ -173,13 +173,28 @@ liveblog.controller('BlogController', ['$scope', '$http', '$routeParams', '$sce'
     return $sce.trustAsResourceUrl(src.replace('watch?v=', 'embed/'));
   }
 
+  $scope.storePost = function(postId) {
+    $scope.postToDelete = postId;
+    $('#deletePostModal').foundation('reveal', 'open');
+  };
+
+  $scope.deletePost = function () {
+    // $http.delete('/api/') ERIK PLS THANK YOU
+  }
+
   // Bind the open event for the modal.
-  $('form').on('click', '#blog-title', function (){
-      $('#editBlogTitleModal').foundation('reveal', 'open');
+  $('form').on('click', '#blog-title', function (){ 
+    $('#editBlogTitleModal').foundation('reveal', 'open');
+  });
+
+  // Bind the open event for the modal.
+  $('.post').on('click', '.delete-post', function () {
+    $('#deletePostModal').foundation('reveal', 'open');
   });
 
   // Bind the close event for the modal.
   $('.close-reveal-modal, .close-modal').click(function (){
-      $('#editBlogTitleModal').foundation('reveal', 'close');
+    $('#editBlogTitleModal').foundation('reveal', 'close');
+    $('#deletePostModal').foundation('reveal', 'close');
   });
 }]);

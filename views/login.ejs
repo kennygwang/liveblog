@@ -18,7 +18,7 @@
         </ul>
       </nav>
     </div>
-    <form role="form" method="POST" action="/login">
+    <form class="login-form" role="form" method="POST" action="/login">
         <div class="row">
           <div class="column">
             <h1>Log In</h1>
@@ -38,18 +38,24 @@
         </div>
 
         <div class="row">
+            <div class="column">
+              <p>Don't have an account? <a href="/register">sign me up</a></p>
+            </div>
+          </div>
+
+        <div class="row">
           <div class="small-12 column">
               <input type="submit" class="button right" value="Log in" />
           </div>
         </div>
       </form>
-      <div class="row">
-        <div class="column">
-          <p>Don't have an account? <a href="/register">sign me up</a></p>
-        </div>
-      </div>
+      
+
+        <div class="menu-ring"></div>
+
     <script src="./vendor/jquery/dist/jquery.min.js"></script>
     <script src="./vendor/angular/angular.min.js"></script>
     <script src="./vendor/angular-route/angular-route.min.js"></script>
+    <script src="./js/fancyRing.js"></script>
   </body>
 </html>

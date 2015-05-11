@@ -20,7 +20,7 @@
       </nav>
     </div>
     <div class="form-container">
-      <form id="signup-form" name="signupForm" ng-submit="signupForm.$valid && register()" novalidate>
+      <form class="login-form" id="signup-form" name="signupForm" ng-submit="signupForm.$valid && register()" novalidate>
           <div class="row">
             <div class="column">
               <h1>Register</h1>
@@ -57,20 +57,21 @@
             <span class="error" ng-show="signupForm.lastName.$error.maxlength">
               Too long!</span>
           </div>
-
-          <div class="row">
-            <div class="small-12 column">
-              <!-- <input type="submit" class="button right" ng-class="stateClass" value="{{submitMessage}}" ng-disabled="disableSubmit" /> -->
-              <input type="submit" class="lb-button" ng-class="stateClass" value="{{submitMessage}}" ng-disabled="disableSubmit" />
-            </div>
-          </div>
         </form>
+
+        <div class="row">
+          <div class="small-12 column">
+            <input type="submit" class="lb-button" ng-class="stateClass" value="{{submitMessage}}" ng-disabled="disableSubmit" />
+          </div>
+        </div>
+
         <div class="row">
           <div class="column">
             <p>Already have an account? <a href="/login">Log in!</a></p>
           </div>
         </div>
-      </div>
+      </form>
+    </div>
 
     <script src="./vendor/jquery/dist/jquery.min.js"></script>
     <script src="./vendor/angular/angular.min.js"></script>

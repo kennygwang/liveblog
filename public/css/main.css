@@ -22,7 +22,7 @@ a {
 #nav-bar-wrapper {
   margin-bottom: 45px; }
 
-.bloglist-outer {
+.bloglist-outer .row {
   max-width: 32.5rem; }
 
 .blog-title h1 {

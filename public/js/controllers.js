@@ -174,6 +174,9 @@ liveblog.controller('BlogController', ['$scope', '$http', '$routeParams', '$sce'
 
       // Clear input fields
       $('.clear-after').val('');
+      $scope.content = '';
+      $scope.caption = '';
+      $scope.url = '';
     });
   };
 
